@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../backup/.idea/backup.iml" filepath="$PROJECT_DIR$/../backup/.idea/backup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bindev/.idea/bindev.iml" filepath="$PROJECT_DIR$/../bindev/.idea/bindev.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bingit/.idea/bingit.iml" filepath="$PROJECT_DIR$/../bingit/.idea/bingit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/binpm.iml" filepath="$PROJECT_DIR$/.idea/binpm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../binsh/.idea/binsh.iml" filepath="$PROJECT_DIR$/../binsh/.idea/binsh.iml" />
+    </modules>
+  </component>
+</project>
