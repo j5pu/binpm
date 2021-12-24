@@ -5,7 +5,13 @@ echo "$_"
 # binpm installer
 set -eu
 
-echo "$0"
+if [ "$(basename "$0")" = 'install' ]; then
+  downloaded=true
+else
+  downloaded=false
+fi
+
+echo "$downloaded"
 #cd "$(basename "${0}")"
 #pwd
 #PATH="${PWD}:${PATH}"
