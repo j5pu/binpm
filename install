@@ -4,6 +4,6 @@
 # binpm installer
 set -eu
 
+echo "${0}"
 cd "$(basename "${0}")"
 pwd
-PATH="${PWD}:${PATH}"
