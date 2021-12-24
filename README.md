@@ -13,6 +13,12 @@ Prerequisites Debian Like (slim images, i.e.: Python slim, Zsh, etc.):
 * **git**: 
 `git clone https://github.com/j5pu/binpm && ./binpm/install [password]`
 
+## Tests
+### Installer 
+```bash
+curl -fsSL https://git.io/binpm?$(date +%s) | sh -s 
+curl -H 'Cache-Control: no-cache' -fsSL https://git.io/binpm | sh -s 
+```
 ## Links
 [install raw](https://raw.githubusercontent.com/j5pu/binpm/main/install)
 [install git.io](https://git.io/binpm)

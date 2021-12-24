@@ -1,10 +1,10 @@
 #!/bin/sh
+echo "$_"
 
 #
 # binpm installer
 set -eu
 
-echo "$_"
 echo "$0"
 #cd "$(basename "${0}")"
 #pwd
