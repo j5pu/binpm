@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="bashsupport-pro.project">
+    <scriptLibraries>
+      <library name="bats-core" />
+      <library name="share/bashpro" />
+      <library name="share/bats.sh">
+        <sources>
+          <source path="/usr/local/share/bats.sh/bats-assert/src" recursive="true" external="true" />
+          <source path="/usr/local/share/bats.sh/bats-file/src" recursive="true" external="true" />
+          <source path="/usr/local/share/bats.sh/bats-support/src" recursive="true" external="true" />
+        </sources>
+        <targets>
+          <target recursive="true" />
+        </targets>
+      </library>
+    </scriptLibraries>
+  </component>
+</project>

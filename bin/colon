@@ -1,0 +1,149 @@
+#!/bin/sh
+
+#
+# Prepend (beginning, the default), append (end) or remove to colon variables (PATH, INFOPATH, MANPATH etc.)
+set -eu
+
+caller() {
+  APPEND=false; EXISTS=true; REMOVE=false
+
+}
+
+#######################################
+# Prepend (beginning, the default), append (end) or remove
+# Globals:
+#   APPEND              Add at the end.
+#   EXISTS              Do not add it if the directory does not exist (does not apply to $REMOVE).
+#   EXPORT              Variable name to add export command.
+#   REMOVE              Remove for the path value.
+# Optional Arguments:
+#   DIRECTORY           The directory to prepend (default), append (--append) or remove (--remove).
+#                       (default: script directory and script directory parent with sbin).
+#   VALUE               Path value to manipulate (default: "" if 'DIRECTORY' provided, 'PATH' if no 'DIRECTORY').
+# Outputs:
+#   Updated path value.
+#######################################
+run() {
+  ! $EXISTS || [ -d "${1-}" ] || ! $REMOVE || { output "${2}"; return 2>/dev/null || exit; }
+  case ":${2}:" in
+    *:"${1}":*)
+      if $REMOVE; then
+        output "$(echo "${2}" | command -p sed "s|${1}:||; s|:${1}||; s|${1}||")"
+      elif [ "${2-}" ]; then
+        output "${2}"
+      fi
+      ;;
+    *)
+      if [ "${1:-}" ]; then
+        if $APPEND; then
+          output "${2:+${2}:}${1}"
+        else
+          output "${1}${2:+:${2}}"
+        fi
+      else
+        output "${2}"
+      fi
+    ;;
+  esac
+}
+
+#######################################
+# Show plain output or with export command
+# Globals:
+#   EXPORT              Variable name to add export command.
+# Arguments:
+#   value               Path value to show or add export command.
+# Output:
+#   value or variable and value with export command.
+#######################################
+output() {
+  if [ "${EXPORT-}" ]; then
+    echo "${EXPORT}='${1}'; export ${EXPORT}"
+  else
+    echo "${1}"
+  fi
+}
+
+#######################################
+# Prepend (beginning, the default), append (end) or remove to colon variables (PATH, INFOPATH, MANPATH etc.)
+# Globals:
+#   APPEND              Add at the end.
+#   EXISTS              Do not add it if the directory does not exist (does not apply to $REMOVE).
+#   EXPORT              Variable name to add export command.
+#   REMOVE              Remove for the path value.
+# Optional Arguments:
+#   --append            Add at the end.
+#   --dev               Add project paths.
+#   --exists            Do not add it if the directory does not exist (does not apply to $REMOVE).
+#   --export=<var name> Show variable name with value and export command for eval (default: 'PATH).
+#   --remove            Remove for the path value.
+#   DIRECTORY           The directory to prepend (default), append (--append) or remove (--remove).
+#                       (default: script directory and script directory parent with sbin).
+#   VALUE               Path value to manipulate (default: "" if 'DIRECTORY' provided, 'PATH' if no 'DIRECTORY').
+# Note:
+#   Generates file to be sourced for the three variables when not arguments are provided.
+# Outputs:
+#   Updated path value or variable and value with export command.
+# Examples:
+#   $ colon
+#   .../sbin:.../bin:$PATH
+#   $ colon --export
+#   PATH='.../sbin:.../bin:$PATH'; export PATH
+#   $ colon -e
+#   PATH='.../sbin:.../bin:$PATH'; export PATH
+#   $ colon --base
+#   /usr/...
+#   $ colon /rc.d "$(colon --base)"
+#   /rc.d:/usr/...
+#   $ colon --base -e
+#   PATH='/usr/...'; export PATH
+#   $ color --init
+#   PATH='...'; export PATH
+#   $ colon /foo
+#   foo
+#   $ colon /foo -e
+#   PATH='foo'; export PATH
+#   $ colon /foo --export=PATH
+#   PATH='foo'; export PATH
+#   $ colon /foo /bar
+#   /foo:/bar
+#   $ colon /foo /bar --export=MANPATH
+#   MANPATH='/foo:/bar'; export MANPATH
+#   $ colon /foo /bar --append
+#   /bar:/foo
+#   $ colon /foo /bar --append --export=INFOPATH
+#   INFOPATH='/bar:/foo'; export INFOPATH
+#   $ colon --append /foo /bar
+#   /bar:/foo
+#   $ colon --append /foo /bar --export
+#   PATH='/bar:/foo'; export PATH
+#   $ colon /foo --remove /bar:/foo
+#   /bar
+#   $ colon /foo --remove /bar:/foo --export=
+#   PATH='/bar'; export PATH
+#######################################
+main() {
+  func='run'; APPEND=false; EXISTS=false; REMOVE=false
+  if [ "$#" -eq 0 ]; then
+    init
+  else
+    for arg do
+      shift
+      case "${arg}" in
+        --append) APPEND=true ;;
+        --caller) func="${arg#--}" ;;
+        --exists) EXISTS=true ;;
+        --export|--export=) EXPORT='PATH' ;;
+        --export=*) EXPORT="${arg#--export=}" ;;
+        --remove) REMOVE=true ;;
+        --desc|--help|--manrepo|--version) COMMAND="${0##*/}" parse-man "${arg}"; exit ;;
+      esac
+      set -- "$@" "${arg}"
+    done
+    ! $CALLER || caller
+    ${func} "$@"
+    PARSE="${0}" parse "$@"
+  fi
+}
+
+main "$@"

@@ -1,7 +1,7 @@
 #  binpm
 
 ## Install 
-`bash` and `git` will be installed by the installer in all but Busybox image.
+`bash`, `git` and `man` will be installed by the installer in all but Busybox image.
 
 Prerequisites Debian Like (slim images, i.e.: Python slim, Zsh, etc.): 
 `apt update && apt install -y curl`

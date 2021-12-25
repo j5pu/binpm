@@ -4,13 +4,13 @@
 # binpm installer
 set -eu
 
+name='binpm'
+
 if [ "$(basename "$0")" = 'install' ]; then
   downloaded=true
+  ! command -v "${name}" >/dev/null || PATH="$(dirname "$0"):${PATH}"
 else
   downloaded=false
 fi
 
 echo "$downloaded"
-#cd "$(basename "${0}")"
-#pwd
-#PATH="${PWD}:${PATH}"
