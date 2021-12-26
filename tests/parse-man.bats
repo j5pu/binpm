@@ -4,6 +4,10 @@ setup() {
   load helpers/test_helper;
 }
 
+setup_file() {
+  genman
+}
+
 success() {
   run sh -c "COMMAND=${2:-git} parse-man --${BATS_TEST_DESCRIPTION}"
   assert_success
@@ -35,5 +39,11 @@ success() {
   run sh -c "COMMAND=${2:-git} parse-man --help"
   assert_success
 }
+
+@test "help" {
+  run sh -c "COMMAND=${2:-git} parse-man --help"
+  assert_success
+}
+
 
 # TODO: tests for itself parse-man --help, etc. and manrepo

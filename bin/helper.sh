@@ -35,7 +35,7 @@ fi
 # Show info message with > symbol in grey bold if DEBUG is set to 1, unless QUIET is set to 1
 # Globals:
 #   DEBUG              Show if DEBUG set to 1, unless QUIET is set to 1 (default: 0).
-#   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRYRUN (default: 0).
+#   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRY_RUN (default: 0).
 # Arguments:
 #   message            Message to show.
 #   --desc             Show description and exit.
@@ -110,7 +110,7 @@ debug() {
 #######################################
 # Show message (success or error) with symbol (✓, x respectively) based on status code, unless QUIET is set and exit
 # Globals:
-#   QUIET              Do not show message if set (but 0), takes precedence over VERBOSE/DRYRUN (default: unset).
+#   QUIET              Do not show message if set (but 0), takes precedence over VERBOSE/DRY_RUN (default: unset).
 # Arguments:
 #   message            Message to show.
 #   --desc             Show description and exit.
@@ -238,7 +238,7 @@ has() {
 #######################################
 # show error message with x symbol in red, unless QUIET is set to 1
 # Globals:
-#   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRYRUN (default: 0).
+#   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRY_RUN (default: 0).
 # Arguments:
 #   message            Message to show.
 #   --desc             Show description and exit.
@@ -379,7 +379,7 @@ psargs() {
 #######################################
 # show success message in white with green ✓ symbol, unless QUIET is set to 1
 # Globals:
-#   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRYRUN (default: 0).
+#   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRY_RUN (default: 0).
 # Arguments:
 #   message            Message to show.
 #   --desc             Show description and exit.
@@ -410,10 +410,10 @@ success() {
 }
 
 #######################################
-# show verbose/dry-run message with > symbol in grey dim if VERBOSE or DRYRUN are set, unless QUIET is set to 1
+# show verbose/dry-run message with > symbol in grey dim if VERBOSE or DRY_RUN are set, unless QUIET is set to 1
 # Globals:
-#   DRYRUN             Show message if set to 1, unless QUIET is set to 1 (default: 0).
-#   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRYRUN (default: 0).
+#   DRY_RUN            Show message if set to 1, unless QUIET is set to 1 (default: 0).
+#   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRY_RUN (default: 0).
 #   VERBOSE            Shows message if set to 1, unless QUIET is set to 1 (default: 0).
 # Arguments:
 #   message            Message to show.
@@ -433,14 +433,14 @@ success() {
 #######################################
 verbose() {
   # <html><h2>Dry Run</h2>
-  # <p><strong><code>$DRYRUN</code></strong> (Default: 0).</p>
+  # <p><strong><code>$DRY_RUN</code></strong> (Default: 0).</p>
   # <p>Activate with either of:</p>
   # <ul>
-  # <li><code>DRYRUN=1</code></li>
+  # <li><code>DRY_RUN=1</code></li>
   # <li><code>--dryrun</code></li>
   # </ul>
   # </html>
-  DRYRUN="${DRYRUN:-0}"
+  DRY_RUN="${DRY_RUN:-0}"
 
   # <html><h2>Show Verbose Messages</h2>
   # <p><strong><code>$VERBOSE</code></strong>  (Default: 0).</p>
@@ -457,7 +457,7 @@ verbose() {
     --desc|--help|--manrepo|--version) COMMAND='verbose' parse-man "${1}"; exit ;;
   esac
 
-  if [ "${QUIET-0}" -ne 1 ] && { [ "${VERBOSE}" -eq 1 ] || [ "${DRYRUN-}" -eq 1 ]; }; then
+  if [ "${QUIET-0}" -ne 1 ] && { [ "${VERBOSE}" -eq 1 ] || [ "${DRY_RUN-}" -eq 1 ]; }; then
     sep=''
     [ "$#" -eq 0 ] || sep=' '
     printf '%b\n' "$(cyanbold '>')${sep}$(cyandim "$*")"
@@ -468,7 +468,7 @@ verbose() {
 #######################################
 # show warning message with ! symbol in yellow if WARNING is set to 1, unless QUIET is set to 1
 # Globals:
-#   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRYRUN (default: 0).
+#   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRY_RUN (default: 0).
 #   WARNING            Shows message if is set to 1, unless QUIET is set to 1 (default: 0).
 # Arguments:
 #   message            Message to show.
