@@ -41,6 +41,12 @@ main() {
       --dirname) show_dirname=1 ;;
       --fail) fail=1 ;;
       --resolved) resolved=1 ;;
+      # TODO: aqui lo dejo no se si meter todas cada vez o hacer algo que devuelva rc=100
+      #     o funcion y que ponga una variable y el parse también es un peñazo poner siempre las
+      #   putas variables....
+      # me falta hacer los tests del parse como estaba antes con el repository test.
+      # meter las imagenes en el bindev y las funciones o en el bats o lo que sea.
+      # meter el colon cuando este probado en el bats.sh y donde juego con el puto PATH.
       --desc|--help|--manrepo|--version) COMMAND="${0##*/}" parse-man "${arg}"; exit ;;
       --debug|--dry-run|--no-quiet|--quiet|--verbose|--warning|--white) parse "${arg}" ;;
       *) path="${arg}" ;;

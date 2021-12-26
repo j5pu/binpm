@@ -9,7 +9,7 @@ set -eu
 # Arguments:
 #  None
 #######################################
-desc() { name | awk -F '-' '{ print substr($0, index($0,$2)) }' | sed 's/^ //'; }
+desc() { name | sed "s/^${cmd} - //" | tr '\n' ' ' | xargs; }
 
 #######################################
 # show description from manpage
@@ -44,7 +44,7 @@ name() { subsection NAME; }
 # Arguments:
 #   1   Subsection name
 #######################################
-subsection() { sed -n -e "/^${1}/,/^[A-Z]/ p" | grep -v -e "^[A-Z]" | sed "s/       //g"; }
+subsection() { sed -n -e "/^${1}/,/^[A-Z]/ p" | grep -v -e "^[A-Z]" | xargs; }
 
 #######################################
 # show subsections from manpage
@@ -76,7 +76,8 @@ version() { tail -1 | awk '{ print $2 }'; }
 #######################################
 main() {
   # col -bx because man adds something (col -b) works.
-  [ ! "${1-}" ] || rv="$(man "${COMMAND:-${0##*/}}" 2>/dev/null | col -b | "${1#--}")"
+  cmd="${COMMAND:-${0##*/}}"
+  [ ! "${1-}" ] || rv="$(man "${cmd}" 2>/dev/null | col -b | "${1#--}")"
   [ "${rv-}" ] || exit 1
   echo "${rv}"
 }
