@@ -129,7 +129,7 @@ main() {
   for arg do
     case "${arg}" in
       lib) func="${arg}" ;;
-      --desc|--help|--manrepo|--version) COMMAND="${0##*/}" parse-man "${arg}"; exit ;;
+      --desc|--help|--manrepo|--version) COMMAND="$0" parse-man "${arg}"; exit ;;
     esac
   done
   ${func:-show}

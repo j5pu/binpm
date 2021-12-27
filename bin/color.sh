@@ -844,7 +844,7 @@ if [ "$(basename "$0")" = 'color.sh' ]; then
   for arg do
     case "${arg}" in
       lib) color "${arg}" ;;
-      --desc|--help|--manrepo|--version) COMMAND="${0##*/}" parse-man "${arg}"; exit ;;
+      --desc|--help|--manrepo|--version) COMMAND="$0" parse-man "${arg}"; exit ;;
     esac
     exit
   done

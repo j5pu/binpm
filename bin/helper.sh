@@ -537,7 +537,7 @@ warning() {
 if [ "$(basename "$0")" = 'helper.sh' ]; then
   for arg do
     case "${arg}" in
-      --desc|--help|--manrepo|--version) COMMAND="${0##*/}" parse-man "${arg}" ;;
+      --desc|--help|--manrepo|--version) COMMAND="$0" parse-man "${arg}" ;;
     esac
     exit
   done

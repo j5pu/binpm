@@ -47,7 +47,8 @@ main() {
       # me falta hacer los tests del parse como estaba antes con el repository test.
       # meter las imagenes en el bindev y las funciones o en el bats o lo que sea.
       # meter el colon cuando este probado en el bats.sh y donde juego con el puto PATH.
-      --desc|--help|--manrepo|--version) COMMAND="${0##*/}" parse-man "${arg}"; exit ;;
+      # llamarlos parse-info  parse.output
+      --desc|--help|--manrepo|--version) COMMAND="$0" parse-man "${arg}"; exit ;;
       --debug|--dry-run|--no-quiet|--quiet|--verbose|--warning|--white) parse "${arg}" ;;
       *) path="${arg}" ;;
     esac

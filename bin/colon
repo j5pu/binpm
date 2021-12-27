@@ -136,7 +136,7 @@ main() {
         --export|--export=) EXPORT='PATH' ;;
         --export=*) EXPORT="${arg#--export=}" ;;
         --remove) REMOVE=true ;;
-        --desc|--help|--manrepo|--version) COMMAND="${0##*/}" parse-man "${arg}"; exit ;;
+        --desc|--help|--manrepo|--version) COMMAND="$0" parse-man "${arg}"; exit ;;
       esac
       set -- "$@" "${arg}"
     done

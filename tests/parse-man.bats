@@ -27,6 +27,7 @@ desc() {
   assert_success
   assert_output "$( head -1 "${REPO_TEST_TMPDIR}/input/${BATS_TEST_DESCRIPTION}.desc")"
 }
+
 success() {
   run sh -c "COMMAND=${2:-git} parse-man --${BATS_TEST_DESCRIPTION}"
   assert_success

@@ -76,6 +76,7 @@ version() { tail -1 | awk '{ print $2 }'; }
 #######################################
 main() {
   # col -bx because man adds something (col -b) works.
+  cmd="${COMMAND:+${COMMAND##*/}}"
   cmd="${COMMAND:-${0##*/}}"
   [ ! "${1-}" ] || rv="$(man "${cmd}" 2>/dev/null | col -b | "${1#--}")"
   [ "${rv-}" ] || exit 1
