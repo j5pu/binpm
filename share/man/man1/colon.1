@@ -2,12 +2,12 @@
 .\"     Title: colon
 .\"    Author: [see the "AUTHOR(S)" section]
 .\" Generator: Asciidoctor 2.0.16
-.\"      Date: 2021-12-27
+.\"      Date: 2021-12-28
 .\"    Manual: Colon Manual
 .\"    Source: Colon 0.1.0
 .\"  Language: English
 .\"
-.TH "COLON" "1" "2021-12-27" "Colon 0.1.0" "Colon Manual"
+.TH "COLON" "1" "2021-12-28" "Colon 0.1.0" "Colon Manual"
 .ie \n(.g .ds Aq \(aq
 .el       .ds Aq '
 .ss \n[.ss] 0
@@ -32,8 +32,10 @@ colon \- Prepend (beginning, the default), append (end) or remove to colon varia
 .SH "SYNOPSIS"
 .sp
 .nf
-\fBcolon\fP [\fIOPTION\fP]... \fIARGUMENT\fP...
+\fBcolon\fP [\fIOPTION\fP]... [\fIFILE|DIR\fP] [\fIVALUE\fP]
+\fBcolon\fP \-\-base
 \fBcolon\fP \-\-bins [\fIFILE|DIR\fP]
+\fBcolon\fP \-\-init
 .fi
 .br
 .sp
@@ -43,18 +45,109 @@ colon \- Prepend (beginning, the default), append (end) or remove to colon varia
 The \fBcolon\fP command
 .SH "OPTIONS"
 .sp
+\fB\-\-append\fP
+.RS 4
+Append \fIFILE|DIR\fP argument (dirname if \fIFILE\fP)
+to \fIVALUE\fP argument (if provided, otherwise returns the \fIFILE|DIR\fP argument).
+.RE
+.sp
+\fB\-\-base\fP
+.RS 4
+Shows the base \fI$PATH\fP, \fI$MANPATH\fP and \fI$INFOPATH\fP with \fI/\fP and \fI/usr\fP
+as top directories to add:
+\fI/bin\fP, \fI/sbin\fP, \fI/share/man\fP and \fI/share/info\fP.
+.br
+It implies the \fI\-\-export\fP option to be used with \f(CReval\fP.
+.RE
+.sp
 \fB\-\-bins\fP
 .RS 4
-Adds \fI/bin\fP, \fI/sbin\fP, \fI/share/man\fP and \fI/share/info\fP
-to parent dirname of \fBFILE|DIR\fP argument.
-If no \fBFILE|DIR\fP argument is provided, then \fIgit top\fP is used (added with and without \fItests/\fP).
 The output (\fI\-\-export\fP option implied) will have \fI$PATH\fP, \fI$MANPATH\fP and \fI$INFOPATH\fP updated to be used with \fIeval\fP.
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.  sp -1
+.  IP \(bu 2.3
+.\}
+If \fBFILE|DIR\fP argument is a \fBDIR\fP, then \fBDIR\fP is prepended  to \fI$PATH\fP (unless \fBDIR\fP is the top of a git repository).
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.  sp -1
+.  IP \(bu 2.3
+.\}
+If \fBFILE|DIR\fP argument is a \fBFILE\fP, then \fBparent of FILE\fP is prepended to \fI$PATH\fP
+(unless \fBparent of FILE\fP is the top of a git repository).
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.  sp -1
+.  IP \(bu 2.3
+.\}
+\fIgit top\fP if no \fBFILE|DIR\fP argument is provided
+or parent directory of one of the two previous bullet items is used
+to add: \fI/bin\fP, \fI/sbin\fP, \fI/share/man\fP and \fI/share/info\fP to \fI$PATH\fP,
+\fI$MANPATH\fP (even if directory does not exist, since contents are generated)
+and \fI$INFOPATH\fP.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.  sp -1
+.  IP \(bu 2.3
+.\}
+If a \fI./tests\fP directory exists, then previous bullet items subdirectories will be added with \fI./tests/\fP.
+.RE
+.RE
+.sp
+\fB\-\-export\fP, *\-\-export=*\fI[VARIABLE NAME]\fP
+.RS 4
+Show the output with \fIexport command\fP to be used with \fIeval\fP with \fIVARIABLE NAME\fP if provided (default: \fI$PATH\fP).
+.RE
+.sp
+\fB\-\-init\fP
+.RS 4
+Shows initial \fI$PATH\fP, \fI$MANPATH\fP, and \fI$INFOPATH\fP.
+.br
+It also shows:  \fI$TOP\fP and \fI$<REPO_BASENAME>_TOP\fP which contain the \fIgit top\fP for \fBcolon\fP command.
+.br
+It implies the \fI\-\-export\fP option to be used with \f(CReval\fP.
+.RE
+.sp
+\fB\-P\fP, \fB\-\-physical\fP
+.RS 4
+Use physical absolute directories instead of symlink \fIpwd \-P\fP.
+.RE
+.sp
+\fB\-\-remove\fP
+.RS 4
+Remove \fIFILE|DIR\fP argument (dirname if \fIFILE\fP)
+from \fIVALUE\fP argument (if provided, otherwise returns empty).
 .RE
 .SH "ARGUMENTS"
 .sp
-\fBFILE\fP
+\fBFILE|DIR\fP
 .RS 4
 Caller \fI$0\fP (required for \fI\-\-caller\fP option).
+.RE
+.sp
+\fBVALUE\fP
+.RS 4
+Loren.
 .RE
 .SS "Program Information"
 .sp
