@@ -92,18 +92,8 @@ Show \fIversion\fP from man page and exit.
 .sp
 \fB0\fP
 .RS 4
-.sp
-.RS 4
-.ie n \{\
-\h'-04'\(bu\h'+03'\c
-.\}
-.el \{\
-.  sp -1
-.  IP \(bu 2.3
-.\}
 When called directly (\fI$SHLVL=2\fP) and an argument from:_Program Information_
 found in \fIOPTION\fP (\fI$2\fP) with value from man page.
-.RE
 .RE
 .sp
 \fB1\fP
@@ -158,21 +148,11 @@ to indicate the caller to stop parsing and exit (except when called directly (\f
 .RE
 .SH "EXAMPLES"
 .sp
-.if n .RS 4
 .nf
-.fam C
-$ fromman \-\-desc \fB(1)\fP
+\fI$\fP \fBfromman\fP \-\-desc
 show description, help, repository, version or subsections (SYNOPSYS, etc.) from man page
-.fam
 .fi
-.if n .RE
-.TS
-tab(:);
-r lw(\n(.lu*75u/100u).
-\fB(1)\fP\h'-2n':T{
-Show one line description for \fBfromman\fP
-T}
-.TE
+.br
 .sp
 \fI$\fP \fBfromman\fP git \-\-desc
 the stupid content tracker
@@ -183,26 +163,24 @@ bash [options] [command_string | file]
 .sp
 .nf
 if [ "$(command \-p basename "$0")" = \*(Aqlibrary.sh\*(Aq ]; then
-  fromman "$0" "$@" || exit 0
+  \fBfromman\fP "$0" "$@" || exit 0
 fi
 .fi
 .br
-.SS "Script Usage"
-.SS "Before parsing"
+.SS "Script Usage: Before Parsing"
 .sp
 .nf
-case "${arg}" in
-  \-\-*)
-    if fromman "$0" "$@"; then
-      do dome work for "${arg}"
+main() \(rs{
+  \fBfromman\fP \fI"$0"\fP \fI"$@"\fP || exit
+}
 .fi
 .br
-.SS "With no specific additional long options to parse"
+.SS "Script Usage: Additional Long Options to Parse"
 .sp
 .nf
 case "${arg}" in
   \-\-*)
-    if fromman "$0" "$@"; then
+    if *fromman* \fI"$0"\fP \fI"$@"\fP; then
       do dome work for "${arg}"
     else
       exit 0
@@ -212,12 +190,12 @@ case "${arg}" in
 esac
 .fi
 .br
-.SS "Without specific additional long options to parse"
+.SS "Script Usage: No Additional Long Options to Parse"
 .sp
 .nf
 case "${arg}" in
   \-\-option) do some work for \-\-option ;;
-  \-\-*) fromman "$0" "$@" || exit 0 ;;
+  \-\-*) *fromman* \fI"$0"\fP \fI"$@"\fP || exit 0 ;;
 esac
 .fi
 .br
