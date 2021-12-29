@@ -36,10 +36,9 @@ colon \- Prepend (beginning, the default), append (end) or remove to colon varia
 \fBcolon\fP \-\-base
 \fBcolon\fP \-\-bins [\fIFILE|DIR\fP]
 \fBcolon\fP \-\-init
+\fBcolon\fP \-\-desc|\-\-description|\-\-examples|\-\-help|\-\-manrepo|\-\-subsections|\-\-synopsis|\-\-version
 .fi
 .br
-.sp
-\fBcolon\fP \-\-description|\-\-name|\-\-subsections|\-\-synopsis|\-\-desc|\-\-help|\-\-manrepo|\-\-version|...
 .SH "DESCRIPTION"
 .sp
 The \fBcolon\fP command with no arguments will show with export command \fBcleaned\fP \fI$PATH\fP, \fI$MANPATH\fP and \fI$INFOPATH\fP
@@ -52,6 +51,9 @@ The default is to \fIprepend\fP the \fIFILE|DIR\fP to \fIVALUE\fP.
 The \fI\-\-base\fP, \fI\-\-bins\fP and \fI\-\-init\fP options imply
 the \fI\-\-export\fP option and show the output
 for \fI$PATH\fP, \fI$MANPATH\fP and \fI$INFOPATH\fP, ready for \fIeval\fP.
+.br
+.sp
+\fIMANPAGER=most\fP will be also shown when \fI$MANPATH\fP is shown for \fIeval\fP usage and \fImost\fP is installed.
 .SH "OPTIONS"
 .sp
 \fB\-\-append\fP
@@ -165,9 +167,19 @@ Colon type variable value: i.e: "${PATH}"
 Show one line description from \fINAME\fP section of man page and exit.
 .RE
 .sp
+\fB\-\-description\fP
+.RS 4
+Show \fIDESCRIPTION\fP subsection of man page and exit.
+.RE
+.sp
+\fB\-\-examples\fP
+.RS 4
+Show \fIEXAMPLES\fP subsection of man page and exit.
+.RE
+.sp
 \fB\-\-help\fP
 .RS 4
-Show man page and exit.
+Show \fIman page\fP and exit.
 .RE
 .sp
 \fB\-\-manrepo\fP
@@ -175,9 +187,19 @@ Show man page and exit.
 Show \fIREPOSITORY\fP name from man page and exit.
 .RE
 .sp
+\fB\-\-subsections\fP
+.RS 4
+Show \fIsubsections\fP of man page and exit.
+.RE
+.sp
+\fB\-\-synopsis\fP
+.RS 4
+Show \fISYNOPSIS\fP subsection of man page and exit.
+.RE
+.sp
 \fB\-\-version\fP
 .RS 4
-Show version from man page and exit.
+Show \fIversion\fP from man page and exit.
 .RE
 .SH "EXIT STATUS"
 .sp
