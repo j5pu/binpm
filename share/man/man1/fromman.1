@@ -179,8 +179,8 @@ main() {
 .sp
 .nf
 case "${arg}" in
-  \-\-*)
-    if *fromman* \fI"$0"\fP \fI"$@"\fP; then
+  \-\-\fB*)
+    if *fromman\fP \fI"$0"\fP \fI"$@"\fP; then
       do dome work for "${arg}"
     else
       exit 0
