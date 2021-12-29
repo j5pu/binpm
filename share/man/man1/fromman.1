@@ -163,14 +163,14 @@ bash [options] [command_string | file]
 .sp
 .nf
 if [ "$(command \-p basename "$0")" = \*(Aqlibrary.sh\*(Aq ]; then
-  \fBfromman\fP "$0" "$@" || exit 0
+  \fBfromman\fP \fI"$0"\fP \fI"$@"\fP || exit 0
 fi
 .fi
 .br
 .SS "Script Usage: Before Parsing"
 .sp
 .nf
-main() \(rs{
+main() {
   \fBfromman\fP \fI"$0"\fP \fI"$@"\fP || exit
 }
 .fi
