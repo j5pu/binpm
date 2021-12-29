@@ -2,12 +2,12 @@
 .\"     Title: colon
 .\"    Author: [see the "AUTHOR(S)" section]
 .\" Generator: Asciidoctor 2.0.16
-.\"      Date: 2021-12-28
+.\"      Date: 2021-12-29
 .\"    Manual: Colon Manual
 .\"    Source: Colon 0.1.0
 .\"  Language: English
 .\"
-.TH "COLON" "1" "2021-12-28" "Colon 0.1.0" "Colon Manual"
+.TH "COLON" "1" "2021-12-29" "Colon 0.1.0" "Colon Manual"
 .ie \n(.g .ds Aq \(aq
 .el       .ds Aq '
 .ss \n[.ss] 0
@@ -42,7 +42,16 @@ colon \- Prepend (beginning, the default), append (end) or remove to colon varia
 \fBcolon\fP \-\-description|\-\-name|\-\-subsections|\-\-synopsis|\-\-desc|\-\-help|\-\-manrepo|\-\-version|...
 .SH "DESCRIPTION"
 .sp
-The \fBcolon\fP command
+The \fBcolon\fP command with no arguments will show with export command \fBcleaned\fP \fI$PATH\fP, \fI$MANPATH\fP and \fI$INFOPATH\fP
+variables of directories which do not exist. The output can be used with \fIeval\fP.
+When \fIFILE\fP is provided in the \fIFILE|DIR\fP argument, it\(cqs parent is used as directory.
+.br
+The default is to \fIprepend\fP the \fIFILE|DIR\fP to \fIVALUE\fP.
+.br
+.sp
+The \fI\-\-base\fP, \fI\-\-bins\fP and \fI\-\-init\fP options imply
+the \fI\-\-export\fP option and show the output
+for \fI$PATH\fP, \fI$MANPATH\fP and \fI$INFOPATH\fP, ready for \fIeval\fP.
 .SH "OPTIONS"
 .sp
 \fB\-\-append\fP
@@ -142,12 +151,12 @@ from \fIVALUE\fP argument (if provided, otherwise returns empty).
 .sp
 \fBFILE|DIR\fP
 .RS 4
-Caller \fI$0\fP (required for \fI\-\-caller\fP option).
+Dirname of \fIFILE\fP will be used if \fIFILE|DIR\fP argument is \fIFILE\fP.
 .RE
 .sp
 \fBVALUE\fP
 .RS 4
-Loren.
+Colon type variable value: i.e: "${PATH}"
 .RE
 .SS "Program Information"
 .sp
@@ -176,24 +185,26 @@ Show version from man page and exit.
 .RS 4
 Success.
 .RE
-.sp
-\fB1\fP
-.RS 4
-Error.
-.br
-.RE
 .SH "ENVIRONMENT"
 
 .SH "OUTPUT"
 .sp
 For more information, see: \fIProgram Information\fP
-.sp
 \&.
 .SH "EXAMPLES"
 .sp
 .nf
-\fI$\fP \fBcolon\fP
-output
+\fI$\fP eval "$(\fBcolon\fP \-\-base)"
+\fI$\fP eval "$(\fBcolon\fP \-\-init)"
+\fI$\fP eval "$(\fBcolon\fP)"
+\fI$\fP eval "$(\fBcolon\fP \-\-init \-P)"
+\fI$\fP eval "$(\fBcolon\fP \-\-bins)"
+\fI$\fP eval "$(\fBcolon\fP \-\-bins .)"
+\fI$\fP eval "$(\fBcolon\fP \-\-bins "$0")"
+\fI$\fP PATH="$(\fBcolon\fP . "${PATH}")"
+\fI$\fP eval "$(\fBcolon\fP . "${PATH}" \-\-export)"
+\fI$\fP PATH="$(\fBcolon\fP \-\-append . "${PATH}")"
+\fI$\fP PATH="$(\fBcolon\fP \-\-remove . "${HOME}")"
 .fi
 .br
 .SH "REPOSITORY"
