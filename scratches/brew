@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# https://formulae.brew.sh/docs/api/
+brew info --json=v1 --installed
+echo
+
+# Installed names
+brew info --json=v1 --installed | jq .[].name
+echo
+
+# Linked keg-only formulae
+brew info --json=v1 --installed | jq "map(select(.keg_only == true and .linked_keg != null) | .name)"
+echo
+
+# Linked keg-only formulae
+brew info --json=v1 --installed | jq "map(select(.keg_only == true and .linked_keg != null) | .name)"
+echo
+
+# Unlinked normal formulae
+brew info --json=v1 --installed | jq "map(select(.keg_only == false and .linked_keg == null) | .name)"
+echo

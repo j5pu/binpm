@@ -2,8 +2,30 @@
 <project version="4">
   <component name="bashsupport-pro.project">
     <scriptLibraries>
-      <library name="bats-core" />
-      <library name="share/bashpro" />
+      <library name="bashsupport-pro/builtin">
+        <sources>
+          <source path="$APPLICATION_PLUGINS_DIR$/bashsupport-pro/builtin" recursive="true" external="true" />
+        </sources>
+        <targets>
+          <target recursive="true" />
+        </targets>
+      </library>
+      <library name="bin/bats.sh">
+        <sources>
+          <source path="/usr/local/bin/bats.sh" external="true" />
+        </sources>
+        <targets>
+          <target recursive="true" />
+        </targets>
+      </library>
+      <library name="share/bashpro">
+        <sources>
+          <source path="/usr/local/share/bashpro" recursive="true" external="true" />
+        </sources>
+        <targets>
+          <target recursive="true" />
+        </targets>
+      </library>
       <library name="share/bats.sh">
         <sources>
           <source path="/usr/local/share/bats.sh/bats-assert/src" recursive="true" external="true" />

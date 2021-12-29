@@ -1,5 +1,7 @@
 # shellcheck shell=sh
 
+[ "${UNAME-}" ] || {
+
 # '1' if 'DIST_ID' is 'alpine' and not: nix or busybox
 #
 export ALPINE
@@ -19,6 +21,10 @@ export BUSYBOX
 # '1' if 'DIST_ID' is 'centos'.
 #
 export CENTOS
+
+# Command Line Tools Usr Directory (xcode-select -p).
+#
+export CLT
 
 # '1' if running in docker container.
     #
@@ -87,6 +93,10 @@ export FEDORA_LIKE
 #
 export FEDORA
 
+# Cask Versions (similar to opt)
+#
+export HOMEBREW_CASK
+
 # Version of formula, $HOMEBREW_PREFIX/opt is a symlink to $HOMEBREW_CELLAR (brew shellenv).
 #
 export HOMEBREW_CELLAR
@@ -97,7 +107,15 @@ export HOMEBREW_COMPLETION
 
 # Homebrew etc
 #
-export HOMEBREW_ETC="${HOMEBREW_PREFIX}/etc"
+export HOMEBREW_ETC
+
+# Homebrew unlinked Kegs (in $HOMEBREW_OPT) to add to PATH
+#
+export HOMEBREW_KEGS
+
+# Homebrew ./lib
+#
+export HOMEBREW_LIB
 
 # Symlink for the latest version of formula to $HOMEBREW_CELLAR.
 #
@@ -208,6 +226,9 @@ export UBUNTU
 # </html>
 export UNAME
 
+#######################################
+# distribution ID
+#######################################
 dist_id() {
   case "${DIST_ID}" in
     alpine)
@@ -225,6 +246,9 @@ dist_id() {
   esac
 }
 
+#######################################
+# distribution ID like
+#######################################
 dist_id_like() {
   case "${DIST_ID}" in
     debian) DEBIAN_LIKE='1'; PM='apt' ;;
@@ -233,6 +257,28 @@ dist_id_like() {
   esac
 }
 
+#######################################
+# homebrew variables
+#######################################
+homebrew() {
+  if [ -x "${HOMEBREW_PREFIX}/bin/brew" ]; then
+    HOMEBREW_CASK="${HOMEBREW_PREFIX}/Caskroom"
+    HOMEBREW_CELLAR="${HOMEBREW_PREFIX}/Cellar"
+    HOMEBREW_ETC="${HOMEBREW_PREFIX}/etc"
+    HOMEBREW_COMPLETION="${HOMEBREW_ETC}/bash_completion.d"
+    HOMEBREW_LIB="${HOMEBREW_PREFIX}/lib"
+    HOMEBREW_OPT="${HOMEBREW_PREFIX}/opt"
+    HOMEBREW_PROFILE="${HOMEBREW_ETC}/profile.d"
+    HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
+    HOMEBREW_TAPS="${HOMEBREW_REPOSITORY}/Library/Taps"
+  else
+    unset HOMEBREW_KEGS HOMEBREW_PREFIX
+  fi
+}
+
+#######################################
+# package manager install
+#######################################
 pm_install() {
   if [ "${PM-}" ]; then
     case "${PM}" in
@@ -250,15 +296,18 @@ pm_install() {
   fi
 }
 
+#######################################
+# system main
+#######################################
 system() {
-  HOST="$(hostname -s || cut -d '.' -f 1 /etc/hostname)"
-  UNAME="$(uname)"
+  HOST="$(command -p hostname -s 2>/dev/null || command -p cut -d '.' -f 1 /etc/hostname)"
+  UNAME="$(command -p uname)"
   if [ "${UNAME}" = 'Darwin' ]; then
-    CLT="$(xcode-select -p)/usr"
-    DIST_ID="$(sw_vers -ProductName)"
-    DIST_VERSION="$(sw_vers -ProductVersion)"
+    CLT="$(command -p xcode-select -p)"
+    DIST_ID="$(command -p sw_vers -ProductName)"
+    DIST_VERSION="$(command -p sw_vers -ProductVersion)"
       # shellcheck disable=SC2016
-      case "$(echo "${DIST_VERSION}" | awk -F. '{ print $1 $2 }')" in
+      case "$(echo "${DIST_VERSION}" | command -p awk -F. '{ print $1 $2 }')" in
       1013) DIST_CODENAME='High Sierra' ;;
       1014) DIST_CODENAME='Mojave' ;;
       1015) DIST_CODENAME='Catalina' ;;
@@ -266,8 +315,9 @@ system() {
       12*) DIST_CODENAME='Monterey' ;;
       *) DIST_CODENAME='Other' ;;
     esac
+    HOMEBREW_KEGS='ruby'
     HOMEBREW_PREFIX='/usr/local'
-    MACOS='true'
+    MACOS=true
     PM='brew'
     PM_INSTALL="${PM} install"
     PYCHARM_CONTENTS='/Applications/PyCharm.app/Contents'
@@ -286,10 +336,11 @@ system() {
       BUSYBOX='1'; PM=''
     fi
     HOMEBREW_PREFIX='/home/linuxbrew/.linuxbrew'
-    MACOS='false'
+    MACOS=false
   fi
 
-  pm_install; unset pm_install
+  homebrew; unset -f homebrew
+  pm_install; unset -f pm_install
 
   if [ "${SSH_CLIENT-}" ] || [ "${SSH_CONNECTION-}" ] || [ "${SSH_TTY-}" ]; then
     SSH='1'
@@ -305,3 +356,15 @@ system() {
 }
 
 system; unset -f system
+}
+
+####################################### Executed
+#
+if [ "$(command -p basename "$0")" = 'system.sh' ]; then
+  for arg do
+    case "${arg}" in
+      --desc|--help|--manrepo|--version) COMMAND="$0" parse-man "${arg}" ;;
+    esac
+    exit
+  done
+fi

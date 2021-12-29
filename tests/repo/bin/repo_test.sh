@@ -5,7 +5,7 @@
 . helper.sh
 
 #######################################
-# repo_test_function description
+#    this is the description of function a with . and spaces   .
 #######################################
 repo_test_function() {
   for arg do
