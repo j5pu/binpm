@@ -58,7 +58,7 @@ repo() {
 
 @test "colon --base" {
   EXPECTED="PATH='/usr/sbin:/usr/bin:/sbin:/bin'; export PATH
-MANPATH='/usr/share/man'; export MANPATH
+MANPATH='/usr/share/man:'; export MANPATH
 INFOPATH='/usr/share/info'; export INFOPATH"
   cmd
 }
@@ -69,8 +69,9 @@ PATH='${BATS_TOP_TESTS}/bin:${BATS_TOP}/bin:/usr/local/sbin:/usr/local/bin:\
 ${RUBY_GEMS}/${GEMS_VERSION}/bin:${RUBY_OPT}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PYCHARM}:\
 ${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${BATS_TOP}/share/man:/usr/local/share/man:${RUBY_OPT}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   cmd local
 }
@@ -81,8 +82,9 @@ INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
 ${RUBY_GEMS}/${GEMS_VERSION}/bin:${RUBY_OPT}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PYCHARM}:\
 ${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${BATS_TOP}/share/man:/usr/local/share/man:${RUBY_OPT}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   cmd local
 }
@@ -94,9 +96,10 @@ ${RUBY_GEMS}/${GEMS_VERSION}/bin:\
 ${HOMEBREW_CELLAR}/ruby/${RUBY_VERSION}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PYCHARM}:\
 ${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${BATS_TOP}/share/man:/usr/local/share/man:\
 ${HOMEBREW_CELLAR}/ruby/${RUBY_VERSION}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   cmd local
 }
@@ -108,9 +111,10 @@ ${RUBY_GEMS}/${GEMS_VERSION}/bin:\
 ${HOMEBREW_CELLAR}/ruby/${RUBY_VERSION}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PYCHARM}:\
 ${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${BATS_TOP}/share/man:/usr/local/share/man:\
 ${HOMEBREW_CELLAR}/ruby/${RUBY_VERSION}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   cmd local
 }
@@ -121,8 +125,9 @@ PATH='${BATS_TOP_TESTS}/bin:${BATS_TOP}/bin:/usr/local/sbin:/usr/local/bin:\
 ${RUBY_GEMS}/${GEMS_VERSION}/bin:${RUBY_OPT}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:\
 ${PYCHARM}:${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${BATS_TOP}/share/man:/usr/local/share/man:${RUBY_OPT}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   eval "$(colon --init)"
   cmd local
@@ -132,8 +137,9 @@ INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
 ${RUBY_GEMS}/${GEMS_VERSION}/bin:${RUBY_OPT}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:\
 ${PYCHARM}:${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${BATS_TOP}/share/man:/usr/local/share/man:${RUBY_OPT}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   eval "$(colon --init)"
   cmd local
@@ -143,8 +149,9 @@ INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
 ${RUBY_GEMS}/${GEMS_VERSION}/bin:${RUBY_OPT}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:\
 ${PYCHARM}:${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${BATS_TOP}/share/man:/usr/local/share/man:${RUBY_OPT}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   eval "$(colon --init)"
   cmd local
@@ -154,8 +161,9 @@ INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
 ${RUBY_GEMS}/${GEMS_VERSION}/bin:${RUBY_OPT}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:\
 ${PYCHARM}:${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${BATS_TOP}/share/man:/usr/local/share/man:${RUBY_OPT}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   eval "$(colon --init)"
   cmd local
@@ -165,8 +173,9 @@ INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
 ${RUBY_GEMS}/${GEMS_VERSION}/bin:${RUBY_OPT}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:\
 ${PYCHARM}:${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${BATS_TOP}/share/man:/usr/local/share/man:${RUBY_OPT}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   eval "$(colon --init)"
   cmd local
@@ -180,8 +189,9 @@ ${BATS_TOP_TESTS}/bin:${BATS_TOP}/bin:/usr/local/sbin:/usr/local/bin:\
 ${RUBY_GEMS}/${GEMS_VERSION}/bin:${RUBY_OPT}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:\
 ${PYCHARM}:${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${REPO_TEST_TMPDIR}/share/man:${BATS_TOP}/share/man:/usr/local/share/man:${RUBY_OPT}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   eval "$(colon --init)"
   run colon --bins "${REPO_TEST_TMPDIR}/bin"
@@ -195,9 +205,10 @@ ${RUBY_GEMS}/${GEMS_VERSION}/bin:\
 ${HOMEBREW_CELLAR}/ruby/${RUBY_VERSION}/bin:\
 ${CLT}/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin:\
 ${PYCHARM}:${PYCHARM_CONTENTS}/MacOS:/usr/local/MacGPG2/bin'; export PATH
+MANPAGER='most'; export MANPAGER
 MANPATH='${BATS_TOP}/share/man:/usr/local/share/man:\
 ${HOMEBREW_CELLAR}/ruby/${RUBY_VERSION}/share/man:\
-${CLT}/usr/share/man:/usr/share/man'; export MANPATH
+${CLT}/usr/share/man:/usr/share/man:'; export MANPATH
 INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   eval "$(colon --init -P)"
   cmd local
@@ -258,19 +269,23 @@ INFOPATH='/usr/local/share/info:/usr/share/info'; export INFOPATH"
   cmd
 }
 @test "colon /usr/share/man --export=MANPATH" {
-  EXPECTED="MANPATH='/usr/share/man'; export MANPATH"
+  EXPECTED="MANPAGER='most'; export MANPAGER
+MANPATH='/usr/share/man:'; export MANPATH"
   cmd
 }
 @test "colon --append /usr/share/man --export=MANPATH" {
-  EXPECTED="MANPATH='/usr/share/man'; export MANPATH"
+  EXPECTED="MANPAGER='most'; export MANPAGER
+MANPATH='/usr/share/man:'; export MANPATH"
   cmd
 }
 @test "colon /usr/share/man /bin/share --export=MANPATH" {
-  EXPECTED="MANPATH='/usr/share/man:/bin/share'; export MANPATH"
+  EXPECTED="MANPAGER='most'; export MANPAGER
+MANPATH='/usr/share/man:/bin/share:'; export MANPATH"
   cmd
 }
 @test "colon --append /usr/share/man /bin/share --export=MANPATH" {
-  EXPECTED="MANPATH='/bin/share:/usr/share/man'; export MANPATH"
+  EXPECTED="MANPAGER='most'; export MANPAGER
+MANPATH='/bin/share:/usr/share/man:'; export MANPATH"
   cmd
 }
 @test "colon --append /usr/share/fake --export=INFOPATH" {

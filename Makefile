@@ -5,9 +5,6 @@ SHELL := $(shell command -v bash)
 color:
 	@bin/color lib
 
-true:
-	@true
-
 genman:
 	@genman
 

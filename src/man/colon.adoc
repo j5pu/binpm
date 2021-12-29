@@ -5,12 +5,19 @@
 *{manname}* --base
 *{manname}* --bins [_FILE|DIR_]
 *{manname}* --init
-
-include::/usr/local/include/man/SYNOPSIS-OPTIONS_Information.adoc[]
+include::/usr/local/include/man/SYNOPSIS-ARGUMENTS_Information.adoc[]
 
 == DESCRIPTION
+The *{manname}* command with no arguments will show with export command *cleaned* _$PATH_, _$MANPATH_ and _$INFOPATH_
+variables of directories which do not exist. The output can be used with _eval_.
+When _FILE_ is provided in the _FILE|DIR_ argument, it's parent is used as directory. +
+The default is to _prepend_ the _FILE|DIR_ to _VALUE_. +
 
-The *{manname}* command
+The _--base_, _--bins_ and _--init_ options imply
+the _--export_ option and show the output
+for _$PATH_, _$MANPATH_ and _$INFOPATH_, ready for _eval_. +
+
+_MANPAGER=most_ will be also shown when _$MANPATH_ is shown for _eval_ usage and _most_ is installed.
 
 == OPTIONS
 
@@ -63,10 +70,10 @@ endif::[]
 // tag::arguments[]
 
 *FILE|DIR*::
-Caller _$0_ (required for _--caller_ option).
+Dirname of _FILE_ will be used if _FILE|DIR_ argument is _FILE_.
 
 *VALUE*::
-Loren.
+Colon type variable value: i.e: "${PATH}"
 
 include::/usr/local/include/man/ARGUMENTS-Information.adoc[]
 
@@ -77,35 +84,23 @@ include::/usr/local/include/man/ARGUMENTS-Information.adoc[]
 *0*::
 Success.
 
-*1*::
-Error. +
-
-== ENVIRONMENT
-
-ifdef::Output[]
-include::/usr/local/include/man/ENVIRONMENT-Output.adoc[]
-endif::[]
-
 == OUTPUT
 
-For more information, see: _<<_arguments-information>>_
-
-ifdef::Output[]
-
-and to control output, see: _<<_options_output>>_ and _<<_environment_output>>_
-
-endif::[]
-
-.
+For more information, see: _<<_arguments-information>>_.
 
 == EXAMPLES
 
 [verse]
-_$_ *{manname}*
-output
+_$_ eval "$(*{manname}* --base)"
+_$_ eval "$(*{manname}* --init)"
+_$_ eval "$(*{manname}*)"
+_$_ eval "$(*{manname}* --init -P)"
+_$_ eval "$(*{manname}* --bins)"
+_$_ eval "$(*{manname}* --bins .)"
+_$_ eval "$(*{manname}* --bins "$0")"
+_$_ PATH="$(*{manname}* . "${PATH}")"
+_$_ eval "$(*{manname}* . "${PATH}" --export)"
+_$_ PATH="$(*{manname}* --append . "${PATH}")"
+_$_ PATH="$(*{manname}* --remove . "${HOME}")"
 
 include::/usr/local/include/man/REPOSITORY-COPYING.adoc[]
-
-== SEE ALSO
-
-genman(1), parse(1), parse-man(1)

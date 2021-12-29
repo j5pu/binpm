@@ -53,6 +53,8 @@ fi
 #   Message to stdout.
 #######################################
 debug() {
+  fromman debug "$@" || exit 0
+
   # <html><h2>Show Debug Messages</h2>
   # <p><strong><code>$DEBUG</code></strong> (Default: 0).</p>
   # <p><strong><code>Debug messages are shown if set to 1.</code></strong></p>
@@ -63,10 +65,6 @@ debug() {
   # </ul>
   # </html>
   DEBUG="${DEBUG:-0}"
-
-  case "${1-}" in
-    --desc|--help|--manrepo|--version) COMMAND='debug' parse-man "${1}"; exit ;;
-  esac
 
   if [ "${QUIET-0}" -ne 1 ] && [ "${DEBUG-}" -eq 1 ]; then
     add=''; content=''; line=''; sep=' '
@@ -135,10 +133,7 @@ debug() {
 #######################################
 die() {
   rc=$?
-
-  case "${1-}" in
-    --desc|--help|--manrepo|--version) COMMAND='die' parse-man "${1}"; exit ;;
-  esac
+  fromman die "$@" || exit 0
 
   if [ "${QUIET-0}" -ne 1 ]; then
     case "${rc}" in
@@ -174,9 +169,11 @@ die() {
 #   1 if it does not exist.
 #######################################
 has() {
+  fromman has "$@" || exit 0
+
   doc() { docker run -i --rm --entrypoint sh "${image}" -c "${1}"; }
 
-  all=false; first=true; path=false; value=false
+  all=false; path=false; value=false
   unset image
   for arg; do
     case "${arg}" in
@@ -184,7 +181,6 @@ has() {
       -p|--path) path=true ;;
       -v|--value) value=true ;;
       -pv|-vp) path=true; value=true ;;
-      --desc|--help|--manrepo|--version) ! $first || COMMAND='has' parse-man "${1}"; exit ;;
       -*) false || die Invalid Option: "${arg}";;
       *)
         if [ "${executable-}" ]; then
@@ -194,7 +190,6 @@ has() {
         fi
         ;;
     esac
-    first=false
   done
 
   executable="${executable:-sudo}"
@@ -256,6 +251,8 @@ has() {
 #   Message to stderr.
 #######################################
 error() {
+  fromman error "$@" || exit 0
+
   # <html><h2>Silent Output</h2>
   # <p><strong><code>$QUIET</code></strong> (Default: 0).</p>
   # <p><strong><code>The following messages are shown if set to 0:</code></strong></p>
@@ -278,10 +275,6 @@ error() {
   # <p>Takes precedence over $DEBUG, $VERBOSE and $WARNING.</p>
   # </html>
   QUIET="${QUIET:-0}"
-
-  case "${1-}" in
-    --desc|--help|--manrepo|--version) COMMAND='error' parse-man "${1}"; exit ;;
-  esac
 
   if [ "${QUIET-0}" -ne 1 ]; then
     add=''; line=''; sep=' '
@@ -344,7 +337,7 @@ parse() {
     --no-quiet) eval 'QUIET=0' ;;
     --debug|--dry-run|--quiet|--verbose|--warning|--white)
       eval "$(echo "${arg#--}" | tr '[:lower:]' '[:upper:]' | sed 's/-/_/')=1" ;;
-    --desc|--help|--manrepo|--version) COMMAND='parse' parse-man "${1}"; exit ;;
+    --*) fromman parse "$@" || exit 0 ;;
   esac
 }
 
@@ -365,9 +358,7 @@ parse() {
 #   1 if error during installation of procps or not know to install ps or --usage and not man page.
 # ######################################
 psargs() {
-  case "${1-}" in
-    --desc|--help|--manrepo|--version) COMMAND='psargs' parse-man "${1}"; exit ;;
-  esac
+  fromman psargs "$@" || exit 0
 
   if command -v ps >/dev/null; then
     if ! ps -p $$ -o args= 2>/dev/null; then
@@ -397,9 +388,7 @@ psargs() {
 #   Message to stdout.
 #######################################
 success() {
-  case "${1-}" in
-    --desc|--help|--manrepo|--version) COMMAND='success' parse-man "${1}"; exit ;;
-  esac
+  fromman success "$@" || exit 0
 
   if [ "${QUIET-0}" -ne 1 ]; then
     sep=''
@@ -432,6 +421,8 @@ success() {
 #   Message to stdout.
 #######################################
 verbose() {
+  fromman verbose "$@" || exit 0
+
   # <html><h2>Dry Run</h2>
   # <p><strong><code>$DRY_RUN</code></strong> (Default: 0).</p>
   # <p>Activate with either of:</p>
@@ -452,10 +443,6 @@ verbose() {
   # </ul>
   # </html>
   VERBOSE="${VERBOSE:-0}"
-
-  case "${1-}" in
-    --desc|--help|--manrepo|--version) COMMAND='verbose' parse-man "${1}"; exit ;;
-  esac
 
   if [ "${QUIET-0}" -ne 1 ] && { [ "${VERBOSE}" -eq 1 ] || [ "${DRY_RUN-}" -eq 1 ]; }; then
     sep=''
@@ -487,6 +474,8 @@ verbose() {
 #   Message to stderr.
 #######################################
 warning() {
+  fromman warning "$@" || exit 0
+
   # <html><h2>Show Warning Messages</h2>
   # <p><strong><code>$WARNING</code></strong>  (Default: 0).</p>
   # <p><strong><code>Warning messages are shown if set to 1.</code></strong></p>
@@ -497,10 +486,6 @@ warning() {
   # </ul>
   # </html>
   WARNING="${WARNING:-0}"
-
-  case "${1-}" in
-    --desc|--help|--manrepo|--version) COMMAND='warning' parse-man "${1}"; exit ;;
-  esac
 
   if [ "${QUIET-0}" -ne 1 ] && [ "${WARNING}" -eq 1 ]; then
     add=''; line=''; sep=' '
@@ -535,10 +520,5 @@ warning() {
 ####################################### Executed
 #
 if [ "$(basename "$0")" = 'helper.sh' ]; then
-  for arg do
-    case "${arg}" in
-      --desc|--help|--manrepo|--version) COMMAND="$0" parse-man "${arg}" ;;
-    esac
-    exit
-  done
+  fromman "$0" "$@" || exit 0
 fi

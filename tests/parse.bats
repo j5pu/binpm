@@ -4,7 +4,7 @@ setup() {
   load helpers/test_helper
 }
 
-@test "parse-output" {
+@test "parse" {
   run parse-output --debug --dry-run --quiet --verbose --warning --white
   assert_success
   assert_output - <<STDIN
@@ -17,7 +17,7 @@ WHITE: 1
 STDIN
 }
 
-@test "parse-output --no-quiet" {
+@test "parse --no-quiet" {
   run parse-output --debug --dry-run --no-quiet --verbose --warning --white
   assert_success
   assert_output - <<STDIN

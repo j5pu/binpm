@@ -1,8 +1,10 @@
+:Output:
 == SYNOPSIS
 
 [verse]
 *{manname}* [_OPTION_]... [_OPTION PROGRAM OUTPUT_]... _ARGUMENT_...
-include::/usr/local/include/man/SYNOPSIS-OPTIONS_Information.adoc[]
+
+include::/usr/local/include/man/SYNOPSIS-ARGUMENTS_Information.adoc[]
 
 == DESCRIPTION
 
@@ -49,9 +51,13 @@ endif::[]
 == OUTPUT
 
 For more information, see: _<<_arguments-information>>_
+
 ifdef::Output[]
+
 and to control output, see: _<<_options_output>>_ and _<<_environment_output>>_
+
 endif::[]
+
 .
 
 == EXAMPLES

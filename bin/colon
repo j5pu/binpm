@@ -4,10 +4,6 @@
 # Prepend (beginning, the default), append (end) or remove to colon variables (PATH, INFOPATH, MANPATH etc.)
 set -eu
 
-# TODO: see if I use pwd -P
-# TODO: see what I do with keg only to get the ones from share, ? or ..
-# TODO: insert?
-
 #######################################
 # adds bin, sbin, share/man and share/info
 # Globals:
@@ -164,12 +160,18 @@ kegs() {
 #   value or variable and value with export command.
 #######################################
 output() {
-  if [ "${EXPORT-}" ]; then
-    echo "${EXPORT}='${1}'; export ${EXPORT}"
-  else
-    echo "${1}"
+  if [ "${1-}" ]; then
+    if [ "${EXPORT-}" ]; then
+      if [ "${EXPORT}" = 'MANPATH' ]; then
+        add=':'
+        ! command -v most >/dev/null || echo "MANPAGER='most'; export MANPAGER"
+      fi
+      echo "${EXPORT}='${1}${add:-}'; export ${EXPORT}"
+    else
+      echo "${1}"
+    fi
   fi
-  unset EXPORT
+  unset add EXPORT
 }
 
 #######################################
@@ -245,29 +247,31 @@ run() {
     directory="${1}"  # For MANPATH since they are generated.
   fi
 
-  if [ "${directory-}" ] && [ ! "${2-}" ]; then
+  # shellcheck disable=SC2295
+  value="${2%:}"  # Removes trailing ':' if exists (because of $MANPATH)
+  if [ "${directory-}" ] && [ ! "${value}" ]; then
     $REMOVE || output "${directory}"
   elif [ "${directory-}" ]; then
-    case ":${2}:" in
+    case ":${value}:" in
       *:"${directory}":*)
         if $REMOVE; then
-          output "$(echo "${2}" | command -p sed "s|^${directory}:||; s|:${directory}:|:|; s|:${directory}$||")"
+          output "$(echo "${value}" | command -p sed "s|^${directory}:||; s|:${directory}:|:|; s|:${directory}$||")"
         else
-          output "${2}"
+          output "${value}"
         fi
         ;;
       *)
         if $REMOVE; then
-          output "${2}"
+          output "${value}"
         elif $APPEND; then
-          output "${2}:${directory}"
+          output "${value}:${directory}"
         else
-          output "${directory}:${2}"
+          output "${directory}:${value}"
         fi
       ;;
     esac
-  elif [ "${2-}" ]; then
-    output "${2}"
+  else
+    output "${value}"
   fi
   unset directory
 }
@@ -361,7 +365,7 @@ main() {
         --export=*) EXPORT="${arg#--export=}" ;;
         --init) func="${arg#--}"; SHOW=0 ;;
         --remove) REMOVE=true ;;
-        --desc|--help|--manrepo|--version) COMMAND="$0" parse-man "${arg}"; exit ;;
+        --*) fromman "$0" "$@" || exit 0 ;;
         *) skip=false
       esac
       $skip || set -- "$@" "${arg}"

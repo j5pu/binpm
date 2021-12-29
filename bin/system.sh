@@ -1,4 +1,5 @@
 # shellcheck shell=sh
+# TODO: add completions source here.
 
 [ "${UNAME-}" ] || {
 
@@ -361,10 +362,5 @@ system; unset -f system
 ####################################### Executed
 #
 if [ "$(command -p basename "$0")" = 'system.sh' ]; then
-  for arg do
-    case "${arg}" in
-      --desc|--help|--manrepo|--version) COMMAND="$0" parse-man "${arg}" ;;
-    esac
-    exit
-  done
+  fromman "$0" "$@" || exit 0
 fi

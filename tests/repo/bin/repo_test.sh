@@ -10,8 +10,8 @@
 repo_test_function() {
   for arg do
     case "${arg}" in
-      --desc|--help|--manrepo|--version) COMMAND='repo_test_function' parse-man "${arg}"; exit ;;
       --debug|--dry-run|--no-quiet|--quiet|--verbose|--warning|--white) parse "${arg}" ;;
+      --*) fromman repo_test_function "$@" || exit 0
     esac
   done
 }
@@ -19,8 +19,8 @@ repo_test_function() {
 if [ "$(basename "$0")" = 'repo_test.sh' ]; then
   for arg do
     case "${arg}" in
-      --desc|--help|--manrepo|--version) COMMAND="${0##*/}" parse-man "${arg}"; exit ;;
       --debug|--dry-run|--no-quiet|--quiet|--verbose|--warning|--white) parse "${arg}" ;;
+      --*) fromman "$0" "$@" || exit 0
     esac
   done
 fi
