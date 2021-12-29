@@ -179,8 +179,8 @@ main() {
 .sp
 .nf
 case "${arg}" in
-  \-\-\(rs*)
-    if *fromman* \fI"$0"\fP \fI"$@"\fP; then
+  \-\-\fI*\fP)
+    if \fBfromman\fP \fI"$0"\fP \fI"$@"\fP; then
       do dome work for "${arg}"
     else
       exit 0
@@ -195,7 +195,7 @@ esac
 .nf
 case "${arg}" in
   \-\-option) do some work for \-\-option ;;
-  \-\-*) *fromman* \fI"$0"\fP \fI"$@"\fP || exit 0 ;;
+  \-\-\fI*\fP) \fBfromman\fP \fI"$0"\fP \fI"$@"\fP || exit 0 ;;
 esac
 .fi
 .br
