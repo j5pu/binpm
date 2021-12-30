@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+#
+# walk a file hierarchy upwards
+set -eu
+
+#######################################
+# command -p cd
+# Arguments:
+#   1   dir
+#######################################
+cd() {
+  command -p "$1"
+}
+
+#######################################
+# walk a file hierarchy upwards
+# Globals:
+#   PWD
+# Arguments:
+#   None
+#######################################
+main() {
+  cd "${1:-.}"
+  shift
+  while [ "${PWD}" != / ] ; do
+    command -p find "${PWD}" "$@" -maxdepth 1
+    cd ..
+  done
+}
+
+main "$@"

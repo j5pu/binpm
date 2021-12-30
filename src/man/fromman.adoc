@@ -1,8 +1,9 @@
+:includedir: /usr/local/include/man
 == SYNOPSIS
 
 [verse]
 *{manname}* [_COMMAND|PATH_] [_OPTION_] ...
-include::/usr/local/include/man/SYNOPSIS-ARGUMENTS_Information.adoc[]
+include::{includedir}/template.adoc[tag=synopsys-information]
 
 == DESCRIPTION
 
@@ -18,7 +19,7 @@ The program will return _1_, if there is a match in _OPTION_ (_$2_), to indicate
 *[COMMAND|PATH]*::
 _PATH_ to get name of command from basename or _COMMAND_.
 
-include::/usr/local/include/man/ARGUMENTS-Information.adoc[]
+include::{includedir}/template.adoc[tag=arguments-information]
 
 // end::options[]
 
@@ -86,8 +87,9 @@ case "$\{arg}" in
   --_*_) *{manname}* _"$0"_ _"$@"_ || exit 0 ;;
 esac
 
-include::/usr/local/include/man/REPOSITORY-COPYING.adoc[]
+include::{includedir}/template.adoc[tag=repository-and-copying]
 
 == SEE ALSO
 
-genman(1)
+genman(1), parse(1)
+

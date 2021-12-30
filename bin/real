@@ -4,6 +4,14 @@
 # Absolute logical (symlink, default) or resolved (physical, pwd -P) path (Accepts one level up if it doesn't exist).
 . helper.sh
 
+up() {
+  if [ ! -e "${path}" ]; then
+    while [ "${path}" != "" ] && [ ! -e "${path}/${pattern}" ]; do
+      path=${path%/*}
+    done
+  fi
+}
+
 #######################################
 # Absolute logical (symlink, default) or resolved (physical, pwd -P) path (Accepts one level up if it doesn't exists)
 # Arguments:

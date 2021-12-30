@@ -1,3 +1,4 @@
+:includedir: /usr/local/include/man
 == SYNOPSIS
 
 [verse]
@@ -5,7 +6,7 @@
 *{manname}* --base
 *{manname}* --bins [_FILE|DIR_]
 *{manname}* --init
-include::/usr/local/include/man/SYNOPSIS-ARGUMENTS_Information.adoc[]
+include::{includedir}/template.adoc[tag=synopsys-information]
 
 == DESCRIPTION
 The *{manname}* command with no arguments will show with export command *cleaned* _$PATH_, _$MANPATH_ and _$INFOPATH_
@@ -21,7 +22,6 @@ _MANPAGER=most_ will be also shown when _$MANPATH_ is shown for _eval_ usage and
 
 == OPTIONS
 
-// tag::options[]
 *--append*::
 Append _FILE|DIR_ argument (dirname if _FILE_)
 to _VALUE_ argument (if provided, otherwise returns the _FILE|DIR_ argument).
@@ -63,11 +63,7 @@ ifdef::Output[]
 include::/usr/local/include/man/OPTIONS-Output.adoc[]
 endif::[]
 
-// end::options[]
-
 == ARGUMENTS
-
-// tag::arguments[]
 
 *FILE|DIR*::
 Dirname of _FILE_ will be used if _FILE|DIR_ argument is _FILE_.
@@ -75,9 +71,7 @@ Dirname of _FILE_ will be used if _FILE|DIR_ argument is _FILE_.
 *VALUE*::
 Colon type variable value: i.e: "${PATH}"
 
-include::/usr/local/include/man/ARGUMENTS-Information.adoc[]
-
-// end::arguments[]
+include::{includedir}/template.adoc[tag=arguments-information]
 
 == EXIT STATUS
 
@@ -103,4 +97,4 @@ _$_ eval "$(*{manname}* . "${PATH}" --export)"
 _$_ PATH="$(*{manname}* --append . "${PATH}")"
 _$_ PATH="$(*{manname}* --remove . "${HOME}")"
 
-include::/usr/local/include/man/REPOSITORY-COPYING.adoc[]
+include::{includedir}/template.adoc[tag=repository-and-copying]

@@ -38,13 +38,13 @@ base() {
 #######################################
 bins() {
   exists=1
+
   if [ "${1-}" ]; then
     top="$(pwd "${1}")"
     if [ "${top-}" ] && [ ! -d "${top}/.git" ]; then
       PATH="$(run "${top}" "${PATH:-}")"
       { [ "${top}" = "${HOME}" ] || [ "${top}" = '/' ]; } || top="$(pwd "$(command -p dirname "${top}")")"
     fi
-
   elif ! top="$(git top)"; then
     top="$(pwd '.')"
   fi

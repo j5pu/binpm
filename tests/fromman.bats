@@ -94,7 +94,7 @@ success() {
   desc
 }
 
-@test "repo_test_function" {
+@test "repo_test_function_a" {
   desc
 }
 
