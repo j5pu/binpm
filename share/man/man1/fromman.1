@@ -2,12 +2,12 @@
 .\"     Title: fromman
 .\"    Author: [see the "AUTHOR(S)" section]
 .\" Generator: Asciidoctor 2.0.16
-.\"      Date: 2021-12-29
+.\"      Date: 2021-12-30
 .\"    Manual: Fromman Manual
 .\"    Source: Fromman 0.1.0
 .\"  Language: English
 .\"
-.TH "FROMMAN" "1" "2021-12-29" "Fromman 0.1.0" "Fromman Manual"
+.TH "FROMMAN" "1" "2021-12-30" "Fromman 0.1.0" "Fromman Manual"
 .ie \n(.g .ds Aq \(aq
 .el       .ds Aq '
 .ss \n[.ss] 0
@@ -33,13 +33,13 @@ fromman \- show description, help, repository, version or subsections (SYNOPSYS,
 .sp
 .nf
 \fBfromman\fP [\fICOMMAND|PATH\fP] [\fIOPTION\fP] ...
-Unresolved directive in fromman.adoc \- include::/usr/local/include/man/SYNOPSIS\-ARGUMENTS_Information.adoc[]
+\fBfromman\fP \-\-desc|\-\-description|\-\-examples|\-\-help|\-\-manrepo|\-\-subsections|\-\-synopsis|\-\-version
 .fi
 .br
 .SH "DESCRIPTION"
 .sp
 The \fBfromman\fP command will show information from man page of \fICOMMAND|PATH\fP (default: \fBfromman\fP),
-if the first \fIOPTION\fP (\fI$1\fP \fBfromman\fP and \fI$2\fP for others) is an option in the \fI[_arguments\-information]\fP list.
+if the first \fIOPTION\fP (\fI$1\fP \fBfromman\fP and \fI$2\fP for others) is an option in the \fIProgram Information\fP list.
 The program will return \fI1\fP, if there is a match in \fIOPTION\fP (\fI$2\fP), to indicate the caller to exit.
 .SH "OPTIONS"
 .sp
@@ -47,13 +47,52 @@ The program will return \fI1\fP, if there is a match in \fIOPTION\fP (\fI$2\fP),
 .RS 4
 \fIPATH\fP to get name of command from basename or \fICOMMAND\fP.
 .RE
+.SS "Program Information"
 .sp
-Unresolved directive in fromman.adoc \- include::/usr/local/include/man/ARGUMENTS\-Information.adoc[]
+\fB\-\-desc\fP
+.RS 4
+Show one line description from \fINAME\fP section of man page and exit.
+.RE
+.sp
+\fB\-\-description\fP
+.RS 4
+Show \fIDESCRIPTION\fP subsection of man page and exit.
+.RE
+.sp
+\fB\-\-examples\fP
+.RS 4
+Show \fIEXAMPLES\fP subsection of man page and exit.
+.RE
+.sp
+\fB\-\-help\fP
+.RS 4
+Show \fIman page\fP and exit.
+.RE
+.sp
+\fB\-\-manrepo\fP
+.RS 4
+Show \fIREPOSITORY\fP name from man page and exit.
+.RE
+.sp
+\fB\-\-subsections\fP
+.RS 4
+Show \fIsubsections\fP of man page and exit.
+.RE
+.sp
+\fB\-\-synopsis\fP
+.RS 4
+Show \fISYNOPSIS\fP subsection of man page and exit.
+.RE
+.sp
+\fB\-\-version\fP
+.RS 4
+Show \fIversion\fP from man page and exit.
+.RE
 .SH "EXIT STATUS"
 .sp
 \fB0\fP
 .RS 4
-When called directly (\fI$SHLVL=2\fP) and an argument from:_[_arguments\-information]_
+When called directly (\fI$SHLVL=2\fP) and an argument from:_Program Information_
 found in \fIOPTION\fP (\fI$2\fP) with value from man page.
 .RE
 .sp
@@ -69,7 +108,7 @@ Program will return \fI1\fP for the following conditions:
 .  sp -1
 .  IP \(bu 2.3
 .\}
-An argument from: \fI[_arguments\-information]\fP found in \fIOPTION\fP, with empty value from man page
+An argument from: \fIProgram Information\fP found in \fIOPTION\fP, with empty value from man page
 (\fIValue Not Found: "${func}", for: "${cmd}"\fP).
 .RE
 .sp
@@ -81,7 +120,7 @@ An argument from: \fI[_arguments\-information]\fP found in \fIOPTION\fP, with em
 .  sp -1
 .  IP \(bu 2.3
 .\}
-An argument from:_[_arguments\-information]_ found in \fIOPTION\fP (\fI$2\fP),
+An argument from:_Program Information_ found in \fIOPTION\fP (\fI$2\fP),
 to indicate the caller to stop parsing and exit (except when called directly (\fI$SHLVL=2\fP), which will exit with \fI0\fP).
 .RE
 .sp
@@ -161,8 +200,18 @@ case "${arg}" in
 esac
 .fi
 .br
+.SH "REPOSITORY"
 .sp
-Unresolved directive in fromman.adoc \- include::/usr/local/include/man/REPOSITORY\-COPYING.adoc[]
+binpm
+.br
+.sp
+\fBGitHub:\fP \c
+.URL "https://github.com/j5pu/binpm" "" ""
+.SH "COPYING"
+.sp
+Copyright \(co 2021\-present j5pu.
+.br
+Free use of this software is granted under the terms of the MIT License.
 .SH "SEE ALSO"
 .sp
 genman(1)
