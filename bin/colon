@@ -353,6 +353,7 @@ main() {
   if [ ! "${1-}" ]; then
     clean
   else
+    fromman "$0" "$@" || exit 0
     for arg do
       shift
       skip=true
@@ -365,7 +366,6 @@ main() {
         --export=*) EXPORT="${arg#--export=}" ;;
         --init) func="${arg#--}"; SHOW=0 ;;
         --remove) REMOVE=true ;;
-        --*) fromman "$0" "$@" || exit 0 ;;
         *) skip=false
       esac
       $skip || set -- "$@" "${arg}"

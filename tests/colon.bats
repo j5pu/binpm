@@ -1,7 +1,6 @@
 #!/usr/bin/env bats
 # shellcheck disable=SC2086,SC2153,SC2001
 
-# TODO: tests de la desc, repo, etc
 setup() {
   load helpers/test_helper
   . system.sh
@@ -54,6 +53,11 @@ repo() {
   cp -r "${BATS_TOP_TESTS}/${test_repo_name}" "${BATS_TEST_TMPDIR}"
   REPO_TEST_TMPDIR="$(cd "${BATS_TEST_TMPDIR}/${test_repo_name}" || exit 1; pwd)"; export REPO_TEST_TMPDIR
   git -C "${REPO_TEST_TMPDIR}" init --quiet
+}
+
+@test "colon --version" {
+  run ${BATS_TEST_DESCRIPTION}
+  assert_output "${BATS_SEMVER_NEXT}"
 }
 
 @test "colon --base" {

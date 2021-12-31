@@ -34,6 +34,11 @@ success() {
   assert_output "${1}"
 }
 
+@test "fromman --version" {
+  run ${BATS_TEST_DESCRIPTION}
+  assert_output "${BATS_SEMVER_NEXT}"
+}
+
 @test "fromman" {
   assert ${BATS_TEST_DESCRIPTION}
 }
@@ -67,7 +72,6 @@ success() {
 @test "fromman git --version" {
   run ${BATS_TEST_DESCRIPTION}
   assert_failure
-  assert_line --regexp '[0-9].*.[0-9].*.[0-9]'
 }
 
 @test "fromman git --help" {
@@ -79,11 +83,6 @@ success() {
 @test "fromman --desc" {
   run ${BATS_TEST_DESCRIPTION}
   assert_line 'show description, help, repository, version or subsections (SYNOPSYS, etc.) from man page'
-}
-
-@test "fromman --version" {
-  run ${BATS_TEST_DESCRIPTION}
-  assert_line --regexp '[0-9].*.[0-9].*.[0-9]'
 }
 
 @test "repo_test" {

@@ -33,6 +33,8 @@ cmd() {
   $BATS_LOCAL || for i in ${IMAGES}; do assertoutput "${i}"; done
 }
 
+tmp() { REAL_TMP="/tmp/${1}"; mkdir "${REAL_TMP}"; echo "${REAL_TMP}"; }
+
 @test 'real' { EXPECTED='/'; cmd='cd / && real'; cmd; }
 
 @test 'real bin' { EXPECTED='/bin'; cmd='cd / && real bin'; cmd; }
@@ -94,18 +96,42 @@ real::resolved::quiet::tmp::dir::file() {
 @test 'real resolved quiet tmp dir file' { CALLBACK=1; ERROR=1; cmd='real --resolved --quiet /tmp/dir/file'; cmd; }
 
 real::resolved::tmp::d3::f2() {
-  f=/tmp/d1/f1; case "${1}" in macOS) assert_output "/private${f}" ;; *) assert_output "${f}" ;; esac
+  f="${tmp}/d1/f1";
+  case "${1}" in macOS)
+    assert_output "/private${f}" ;;
+    *) assert_output "${f}" ;;
+  esac
 }
-@test 'real resolved tmp d3 f2' { CALLBACK=1; cmd='real-create && cd /tmp && real --resolved d3/f2 && real-rm'; cmd; }
+@test 'real resolved tmp d3 f2' {
+  CALLBACK=1
+  tmp="$(tmp 1)"
+  cmd="real-create ${tmp} && cd ${tmp} && real --resolved d3/f2 && real-rm ${tmp}"
+  cmd
+}
 real::resolved::tmp::d2::f2() {
   real::resolved::tmp::d3::f2 "${1}"
 }
-@test 'real resolved tmp d2 f2' { CALLBACK=1; cmd='real-create && cd /tmp && real --resolved d2/f2 && real-rm'; cmd; }
+@test 'real resolved tmp d2 f2' {
+  CALLBACK=1
+  tmp="$(tmp 2)"
+  cmd="real-create ${tmp} && cd ${tmp} && real --resolved d2/f2 && real-rm ${tmp}"
+  cmd
+}
 real::resolved::tmp::d2::f1() {
   real::resolved::tmp::d3::f2 "${1}"
 }
-@test 'real resolved tmp d2 f1' { CALLBACK=1; cmd='real-create && cd /tmp && real --resolved d2/f1 && real-rm'; cmd; }
+@test 'real resolved tmp d2 f1' {
+  CALLBACK=1
+  tmp="$(tmp 3)"
+  cmd="real-create ${tmp} && cd ${tmp} && real --resolved d2/f1 && real-rm ${tmp}"
+  cmd
+}
 real::resolved::tmp::d1::f2() {
   real::resolved::tmp::d3::f2 "${1}"
 }
-@test 'real resolved tmp d1 f2' { CALLBACK=1; cmd='real-create && cd /tmp && real --resolved d1/f2 && real-rm'; cmd; }
+@test 'real resolved tmp d1 f2' {
+  CALLBACK=1
+  tmp="$(tmp 4)"
+  cmd="real-create ${tmp} && cd ${tmp} && real --resolved d1/f2 && real-rm ${tmp}"
+  cmd
+}

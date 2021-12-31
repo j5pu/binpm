@@ -5,8 +5,5 @@ SHELL := $(shell command -v bash)
 color:
 	@bin/color lib
 
-genman:
-	@genman
-
-tests:
+tests: color
 	@bats.sh --tests
