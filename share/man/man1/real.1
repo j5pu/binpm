@@ -28,7 +28,7 @@
 .  LINKSTYLE blue R < >
 .\}
 .SH "NAME"
-real \- absolute logical (symlink, default) or resolved (physical, pwd \-P) path
+real \- absolute logical (symlink) or resolved (physical) path
 .SH "SYNOPSIS"
 .sp
 .nf
@@ -154,10 +154,47 @@ Directory or File not Found (\fI\-\-fail\fP option).
 .br
 Directory not Found.
 .RE
+.SH "ENVIRONMENT"
+.SS "Program Output"
+.sp
+You can control output information using the options listed under \fIProgram Output\fP,
+or using the following environment variables:
+.br
+.sp
+\fBDEBUG\fP
+.RS 4
+Set \fBDEBUG\fP=\fI1\fP for debug output (\fIdefault\fP: \fI0\fP).
+.RE
+.sp
+\fBDRY_RUN\fP
+.RS 4
+Set \fBDRY_RUN\fP=\fI1\fP for verbose output and do not execute the command (\fIdefault\fP: \fI0\fP).
+.RE
+.sp
+\fBNO_QUIET\fP
+.RS 4
+Set \fBNO_QUIET\fP=\fI1\fP to not silent output for commands with default quiet mode, i.e.: git\-top, etc. (\fIdefault\fP: \fI0\fP).
+.RE
+.sp
+\fBQUIET\fP
+.RS 4
+Set \fBQUIET\fP=\fI1\fP to silent output,
+\fBQUIET\fP takes precedence over \fIDEBUG\fP, \fIVERBOSE\fP and \fIWARNING\fP.
+.RE
+.sp
+\fBVERBOSE\fP
+.RS 4
+Set \fBVERBOSE\fP=\fI1\fP to show verbose messages (\fIdefault\fP: \fI0\fP).
+.RE
+.sp
+\fBWARNING\fP
+.RS 4
+Set \fBWARNING\fP=\fI1\fP to show warning messages (\fIdefault\fP: \fI0\fP).
+.RE
 .SH "OUTPUT"
 .sp
 For more information, see: \fIProgram Information\fP
-and to control output, see: \fIProgram Output\fP and \fI[_environment\-output]\fP.
+and to control output, see: \fIProgram Output\fP and \fIProgram Output\fP.
 .SH "EXAMPLES"
 .sp
 .nf
