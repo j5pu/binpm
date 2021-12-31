@@ -1,0 +1,47 @@
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_OPTION_]... [_PATH_]
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* command will show the absolute _logical/symlink_ (default)
+or the _resolved/physical_ (_--resolved_|_-P_) path
+of the _PATH_ option (default: cwd).
+
+If _PATH_ does not exist, *{manname}* will not fail (unless _--fail_ option is used) if the parent of _PATH_ exists,
+the absolute path will be constructed with the dirname of _PATH_ (exists) and basename of _PATH_ (does not exist).
+
+== OPTIONS
+
+*--option*::
+_OPTION_ one option.
+
+== ARGUMENTS
+
+*ARGUMENT*::
+Required one _ARGUMENT_.
+
+include::{includedir}/template.adoc[tag=arguments-information]
+
+== EXIT STATUS
+
+*0*::
+Success.
+
+*1*::
+Error. +
+
+== EXAMPLES
+
+[verse]
+_$_ *{manname}*
+output
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+genman(1), fromman(1), parse(1)

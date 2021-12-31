@@ -14,14 +14,10 @@ The program will return _1_, if there is a match in _OPTION_ (_$2_), to indicate
 
 == OPTIONS
 
-// tag::options[]
-
 *[COMMAND|PATH]*::
 _PATH_ to get name of command from basename or _COMMAND_.
 
 include::{includedir}/template.adoc[tag=arguments-information]
-
-// end::options[]
 
 == EXIT STATUS
 

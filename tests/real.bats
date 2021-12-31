@@ -21,7 +21,7 @@ assertoutput() {
   fi
 
   if [ "${CALLBACK-}" ]; then
-    $(echo "${BATS_TEST_DESCRIPTION}" | sed 's/ /::/g') "${os}"
+    $(echo "${BATS_TEST_DESCRIPTION}" | sed 's/ /::/g; s/-//g') "${os}"
   else
     [ ! "${EXPECTED-}" ] || assert_output "${EXPECTED}"
   fi
@@ -29,53 +29,65 @@ assertoutput() {
 
 cmd() {
   assertoutput
-  # FIXME: Images and docker container tests
   $BATS_LOCAL || for i in ${IMAGES}; do assertoutput "${i}"; done
 }
 
 tmp() { REAL_TMP="/tmp/${1}"; mkdir "${REAL_TMP}"; echo "${REAL_TMP}"; }
 
-@test 'real' { EXPECTED='/'; cmd='cd / && real'; cmd; }
+@test "real --version" {
+  genman
+  run ${BATS_TEST_DESCRIPTION}
+  assert_output "${BATS_SEMVER_NEXT}"
+}
 
-@test 'real bin' { EXPECTED='/bin'; cmd='cd / && real bin'; cmd; }
-@test 'real dirname bin' { EXPECTED='/'; cmd='cd / && real --dirname bin'; cmd; }
+@test 'real' { EXPECTED='/'; cmd="cd / && ${BATS_TEST_DESCRIPTION}"; cmd; }
+
+@test 'real bin' { EXPECTED='/bin'; cmd="cd / && ${BATS_TEST_DESCRIPTION}"; cmd; }
+@test 'real --dirname bin' { EXPECTED='/'; cmd="cd / && ${BATS_TEST_DESCRIPTION}"; cmd; }
 real::resolved::bin() {
   case "${1}" in
     *alpine*|bash*|bats*|busybox*|debian*|macOS|nix*|python*|zsh*) assert_output /bin ;;
     *) assert_output /usr/bin ;;
   esac
 }
-@test 'real resolved bin' { CALLBACK=1; cmd='cd / && real --resolved bin'; cmd; }
+@test 'real --resolved bin' { CALLBACK=1; cmd="cd / && ${BATS_TEST_DESCRIPTION}"; cmd; }
 
-@test 'real tmp' { unset CALLBACK; EXPECTED='/tmp'; cmd='cd / && real tmp'; cmd; }
+@test 'real tmp' { unset CALLBACK; EXPECTED='/tmp'; cmd="cd / && ${BATS_TEST_DESCRIPTION}"; cmd; }
+
 real::resolved::tmp() {
   case "${1}" in macOS) assert_output /private/tmp ;; *) assert_output /tmp ;; esac
 }
-@test 'real resolved tmp' { CALLBACK=1; cmd='real --resolved /tmp'; cmd; }
+@test 'real --resolved tmp' { CALLBACK=1; cmd="cd / && ${BATS_TEST_DESCRIPTION}"; cmd; }
 
-@test 'real tmp file' { unset CALLBACK; EXPECTED='/tmp/file'; cmd='cd /tmp && real file'; cmd; }
-real::resolved::tmp::file() {
+real::P::tmp() {
+  real::resolved::tmp "${1}"
+}
+@test 'real -P tmp' { CALLBACK=1; cmd="cd / && ${BATS_TEST_DESCRIPTION}"; cmd; }
+
+@test 'real file' { unset CALLBACK; EXPECTED='/tmp/file'; cmd="cd /tmp && ${BATS_TEST_DESCRIPTION}"; cmd; }
+
+real::resolved() {
   case "${1}" in macOS) assert_output /private/tmp/file;; *) assert_output /tmp/file;; esac
 }
-@test 'real resolved tmp file' { CALLBACK=1; cmd='real --resolved /tmp/file'; cmd; }
+@test 'real --resolved' { CALLBACK=1; cmd="${BATS_TEST_DESCRIPTION} /tmp/file"; cmd; }
 
-real::fail::tmp::file() {
+real::fail::file() {
   assert_line --regexp 'x.*Directory or File not Found.*$'
 }
-@test 'real fail tmp file' { CALLBACK=1; ERROR=1; cmd='cd /tmp && real --fail file'; cmd; }
-real::fail::resolved::tmp::file() {
-  real::fail::tmp::file
+@test 'real --fail file' { CALLBACK=1; ERROR=1; cmd="cd /tmp && ${BATS_TEST_DESCRIPTION}"; cmd; }
+real::fail::resolved() {
+  real::fail::file
 }
-@test 'real fail resolved tmp file' { CALLBACK=1; ERROR=1; cmd='real --fail --resolved  /tmp/file'; cmd; }
+@test 'real --fail --resolved' { CALLBACK=1; ERROR=1; cmd="${BATS_TEST_DESCRIPTION} /tmp/file"; cmd; }
 
-real::fail::quiet::tmp::file() {
+real::fail::quiet::file() {
   assert_output ''
 }
-@test 'real fail quiet tmp file' { CALLBACK=1; ERROR=1; cmd='cd /tmp && real --fail --quiet file'; cmd; }
-real::fail::resolved::quiet::tmp::file() {
+@test 'real --fail --quiet file' { CALLBACK=1; ERROR=1; cmd="cd /tmp && ${BATS_TEST_DESCRIPTION}"; cmd; }
+real::fail::resolved::quiet() {
   assert_output ''
 }
-@test 'real fail resolved quiet tmp file' { CALLBACK=1; ERROR=1; cmd='real --fail --resolved --quiet /tmp/file'; cmd; }
+@test 'real --fail --resolved --quiet' { CALLBACK=1; ERROR=1; cmd="${BATS_TEST_DESCRIPTION} /tmp/file"; cmd; }
 
 real::tmp::dir::file() {
   assert_line --regexp 'x.*Directory not Found.*$'

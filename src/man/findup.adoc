@@ -12,7 +12,6 @@ _FILE|DIRECTORY_ (dirname of _FILE_ is used, if _FILE|DIRECTORY_ is a file) tree
 evaluating an _EXPRESSION_
 (composed of the “primaries” and “operands” listed in find(1)) in terms of each file in the tree.
 
-
 == OPTIONS
 
 See _find(1)_.

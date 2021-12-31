@@ -9,7 +9,7 @@ set -eu
 # Arguments:
 #   None
 #######################################
-desc() { name | sed "s/^${cmd} - //" | tr '\n' ' ' | xargs; }
+desc() { name | sed "s/^${cmd} - //" | tr '\n' ' ' | awk '{$1=$1};1'; }
 
 #######################################
 # show description from manpage
@@ -68,7 +68,7 @@ name() { subsection NAME; }
 # Arguments:
 #   1         Subsection name
 #######################################
-subsection() { sed -n -e "/^${1}/,/^[A-Z]/ p" "${tmp}" | grep -v -e "^[A-Z]" | xargs; }
+subsection() { sed -n -e "/^${1}/,/^[A-Z]/ p" "${tmp}" | grep -v -e "^[A-Z]" | awk '{$1=$1};1'; }
 
 #######################################
 # show subsections from manpage

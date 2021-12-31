@@ -49,6 +49,7 @@ strip() { echo "${1/\/\//\/}"; }
 tmp() { strip "${BATS_FILE_TMPDIR}"; }
 
 @test "findup --version" {
+  genman
   run ${BATS_TEST_DESCRIPTION}
   assert_output "${BATS_SEMVER_NEXT}"
 }

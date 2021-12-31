@@ -78,10 +78,6 @@ include::{includedir}/template.adoc[tag=arguments-information]
 *0*::
 Success.
 
-== OUTPUT
-
-For more information, see: _<<_arguments-information>>_.
-
 == EXAMPLES
 
 [verse]

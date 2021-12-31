@@ -40,7 +40,7 @@ main() {
     case "${arg}" in
       --dirname) show_dirname=1 ;;
       --fail) fail=1 ;;
-      --resolved) resolved=1 ;;
+      -P|--resolved) resolved=1 ;;
       --debug|--dry-run|--no-quiet|--quiet|--verbose|--warning|--white) parse "${arg}" ;;
       --*) fromman "$0" "$@" || exit 0 ;;
       *) path="${arg}" ;;
