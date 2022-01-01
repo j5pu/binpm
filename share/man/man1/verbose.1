@@ -1,13 +1,13 @@
 '\" t
-.\"     Title: real
+.\"     Title: verbose
 .\"    Author: [see the "AUTHOR(S)" section]
 .\" Generator: Asciidoctor 2.0.16
 .\"      Date: 2021-12-31
-.\"    Manual: Real Manual
-.\"    Source: Real 0.1.0
+.\"    Manual: Verbose Manual
+.\"    Source: Verbose 0.1.0
 .\"  Language: English
 .\"
-.TH "REAL" "1" "2021-12-31" "Real 0.1.0" "Real Manual"
+.TH "VERBOSE" "1" "2021-12-31" "Verbose 0.1.0" "Verbose Manual"
 .ie \n(.g .ds Aq \(aq
 .el       .ds Aq '
 .ss \n[.ss] 0
@@ -28,40 +28,24 @@
 .  LINKSTYLE blue R < >
 .\}
 .SH "NAME"
-real \- absolute logical (symlink) or resolved (physical) path
+verbose \- show verbose/dry\-run message with > symbol in grey dim if VERBOSE or DRY_RUN are set, unless QUIET is set to 1
 .SH "SYNOPSIS"
 .sp
 .nf
-\fBreal\fP [\fIOPTION\fP]... [\fIPATH\fP]
-\fBreal\fP \-\-desc|\-\-description|\-\-examples|\-\-help|\-\-manrepo|\-\-subsections|\-\-synopsis|\-\-version
+\fBverbose\fP [\fIOPTION\fP]... [\fIOPTION PROGRAM OUTPUT\fP]... [MESSAGE]...
+\fBverbose\fP \-\-desc|\-\-description|\-\-examples|\-\-help|\-\-manrepo|\-\-subsections|\-\-synopsis|\-\-version
 .fi
 .br
 .SH "DESCRIPTION"
 .sp
-The \fBreal\fP command will show the absolute \fIlogical/symlink\fP (default)
-or the \fIresolved/physical\fP (\fI\-\-resolved\fP|\fI\-P\fP) path
-of the \fIPATH\fP option (default: cwd).
-.sp
-If \fIPATH\fP does not exist, \fBreal\fP will not fail (unless \fI\-\-fail\fP option is used) if the parent of \fIPATH\fP exists,
-the absolute path will be constructed with the dirname of \fIPATH\fP (exists) and basename of \fIPATH\fP (does not exist).
+The \fBverbose\fP command show \fIMESSAGE\fP  in \fI$CyanBold\fP when \fIVERBOSE=1\fP or \fIDRY_RUN=1\fP.
+Message is not shown by default.
+.br
 .SH "OPTIONS"
 .sp
-\fBPATH\fP
-The absolute or relative path to use (default: cwd).
-.sp
-\fB\-\-dirname\fP
+\fBMESSAGE\fP
 .RS 4
-Show dirname instead of \fIPATH\fP.
-.RE
-.sp
-\fB\-\-fail\fP
-.RS 4
-Exit \fI1\fP if \fIPATH\fP does not exists.
-.RE
-.sp
-\fB\-P, \-\-resolved\fP
-.RS 4
-Resolve symlinks (pwd \-P).
+Arguments to show.
 .RE
 .SS "Program Output"
 .sp
@@ -141,19 +125,6 @@ Show \fISYNOPSIS\fP subsection of man page and exit.
 .RS 4
 Show \fIversion\fP from man page and exit.
 .RE
-.SH "EXIT STATUS"
-.sp
-\fB0\fP
-.RS 4
-Success.
-.RE
-.sp
-\fB1\fP
-.RS 4
-Directory or File not Found (\fI\-\-fail\fP option).
-.br
-Directory not Found.
-.RE
 .SH "ENVIRONMENT"
 .SS "Program Output"
 .sp
@@ -194,25 +165,16 @@ Set \fBWARNING\fP=\fI1\fP to show warning messages (\fIdefault\fP: \fI0\fP).
 .SH "OUTPUT"
 .sp
 For more information, see: \fIProgram Information\fP
-and to control output, see: \fIProgram Output\fP and \fIEnvironment Program Output\fP.
+and to control output, see: \fIProgram Output\fP and \fIEnvironment Program Output\fP
+\&.
 .SH "EXAMPLES"
 .sp
 .nf
-\fI$\fP \fBreal\fP
+\fI$\fP VERBOSE=1 \fBverbose\fP Verbose Message
 .fi
 .br
 .sp
-\fI$\fP cd /; \fBreal\fP \fI\-\-dirname\fP tmp
-.sp
-\fI$\fP cd /; \fBreal\fP \fI\-\-resolved\fP tmp
-.sp
-\fI$\fP cd /; \fBreal\fP \fI\-P\fP tmp
-.sp
-\fI$\fP \fBreal\fP \fI\-\-fail \-\-quiet\fP foo
-.sp
-\fI$\fP \fBreal\fP \fI\-\-fail \-\-resolved\fP \-\-quiet foo
-.sp
-\fI$\fP \fBreal\fP \fI\-\-fail\fP foo
+\fI$\fP DRY_RUN=1 \fBverbose\fP Dry\-run Message
 .SH "REPOSITORY"
 .sp
 binpm
@@ -227,7 +189,7 @@ Copyright \(co 2021\-present j5pu.
 Free use of this software is granted under the terms of the MIT License.
 .SH "SEE ALSO"
 .sp
-genman(1), fromman(1), parse(1)
+helper.sh(7)
 .SH "AUTHOR"
 .sp
 j5pu
