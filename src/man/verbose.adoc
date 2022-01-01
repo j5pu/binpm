@@ -1,0 +1,52 @@
+:Output:
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_OPTION_]... [_OPTION PROGRAM OUTPUT_]... [MESSAGE]...
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* command show _MESSAGE_  in _$CyanBold_ when _VERBOSE=1_ or _DRY_RUN=1_.
+Message is not shown by default. +
+
+== OPTIONS
+
+*MESSAGE*::
+Arguments to show.
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=options-output]
+endif::[]
+
+== ARGUMENTS
+
+include::{includedir}/template.adoc[tag=arguments-information]
+
+== ENVIRONMENT
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=environment-output]
+endif::[]
+
+== OUTPUT
+
+For more information, see: _<<_arguments-information>>_
+ifdef::Output[]
+and to control output, see: _<<_options-output>>_ and _Environment <<_environment-output>>_
+endif::[]
+.
+
+== EXAMPLES
+
+[verse]
+_$_ VERBOSE=1 *{manname}* Verbose Message
+
+_$_ DRY_RUN=1 *{manname}* Dry-run Message
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+helper.sh(7)

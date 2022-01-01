@@ -23,6 +23,17 @@ assertline () {
   fi
 }
 
+@test "color --version" {
+  genman
+  run ${BATS_TEST_DESCRIPTION}
+  assert_output "${BATS_SEMVER_NEXT}"
+}
+
+# shellcheck disable=SC2086
+@test "color lib" {
+  assert ${BATS_TEST_DESCRIPTION}
+}
+
 @test "color: + VAR1=1, VAR2=2 " {
   ASSERT_BASH='\+.*color\[.*].*: .*VAR1=1,.*$'  # + color.lib[xx]: VAR1=1, VAR2=2
   ASSERT_SH='\+.*VAR1=1,.*$'  # + VAR1=1, VAR2=2

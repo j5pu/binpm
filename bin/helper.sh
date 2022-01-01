@@ -19,7 +19,7 @@
 # </ul>
 # </html>
 STRICT="${STRICT:-1}"
-if [ "${STRICT-1}" -eq 1 ]; then
+if [ "${STRICT-1}" -eq 1 ] && [ ! "${PS1-}" ]; then
   set -eu
   if [ "${BASH_VERSION-}" ]; then
     # shellcheck disable=SC3040
@@ -32,7 +32,7 @@ fi
 . color.sh
 
 #######################################
-# Show info message with > symbol in grey bold if DEBUG is set to 1, unless QUIET is set to 1
+# show info message with > symbol in grey bold if DEBUG is set to 1, unless QUIET is set to 1
 # Globals:
 #   DEBUG              Show if DEBUG set to 1, unless QUIET is set to 1 (default: 0).
 #   QUIET              Do not show message if set to 1, takes precedence over VERBOSE/DRY_RUN (default: 0).
@@ -106,7 +106,7 @@ debug() {
 }
 
 #######################################
-# Show message (success or error) with symbol (✓, x respectively) based on status code, unless QUIET is set and exit
+# show message (success or error) with symbol (✓, x respectively) based on status code, unless QUIET is set and exit
 # Globals:
 #   QUIET              Do not show message if set (but 0), takes precedence over VERBOSE/DRY_RUN (default: unset).
 # Arguments:
@@ -144,11 +144,10 @@ die() {
   exit "${rc}"
 }
 
-####################################### has
-# Check if an executable exists.
+#######################################
+# check if a command exists.
 # Arguments:
 #   --all               Find all paths.
-#   --bin               The first without /bin/sh shebang (does not work with sudo).
 #   --path              Use path (does not have any effect for: '--all' and '--bin', always searches in $PATH).
 #   --value             Show value (does not have any effect for: '--all' and '--bin', always shows value).
 #   executable          Executable to check (default: sudo if no image and not executable).
@@ -227,7 +226,7 @@ has() {
   else
     false
   fi
-  unset all bin executable path rv value; unset -f doc
+  unset all executable path rv value; unset -f doc
 }
 
 #######################################
@@ -312,8 +311,8 @@ error() {
   fi
 }
 
-####################################### parse
-# Parse common long optional arguments.
+#######################################
+# parse common long optional arguments.
 # Output:
 #   Message to stderr if error and stdout for success.
 # Arguments:
@@ -343,7 +342,7 @@ parse() {
 
 #######################################
 # parent process args (cmd/command and args part of ps)
-# If in a subshell or cmd of the current shell if running in a subshell.
+# if in a subshell or cmd of the current shell if running in a subshell.
 # $$ is defined to return the process ID of the parent in a subshell; from the man page under "Special Parameters":
 # expands to the process ID of the shell. In a () subshell, it expands to the process ID of the current shell,
 # not the subshell.
@@ -356,7 +355,7 @@ parse() {
 #   Process (ps) args.
 # Returns:
 #   1 if error during installation of procps or not know to install ps or --usage and not man page.
-# ######################################
+#######################################
 psargs() {
   fromman psargs "$@" || exit 0
 

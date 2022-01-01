@@ -3,10 +3,10 @@
 
 setup() {
   load helpers/test_helper
+  . helper.sh
 }
 
 @test "psargs " {
-  . helper.sh
   run psargs
   [ "$status" -eq 0 ]
   assert_line --regexp "^bash"

@@ -1,0 +1,42 @@
+:Output:
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_ARGUMENT_] ...
+
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* command shows the _parent process args_ (cmd/command and args part of ps)
+_if in a subshell_ or _cmd of the current shell_ if running in a subshell. +
+
+_$$_ is defined to return the _process ID of the parent in a subshell_. +
+
+From the bash(1) man page under "Special Parameters":
+expands to the process ID of the shell. In a () subshell, it expands to the process ID of the current shell,
+not the subshell.
+
+== ARGUMENTS
+
+include::{includedir}/template.adoc[tag=arguments-information]
+
+== EXIT STATUS
+
+*0*::
+Success.
+
+*1*::
+Error. +
+
+== EXAMPLES
+
+[verse]
+_$_ *{manname}*
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+helper.sh(7)

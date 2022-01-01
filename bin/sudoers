@@ -1,5 +1,12 @@
 #!/bin/sh
+
+#
+# update sudoers
 # https://github.com/MikeMcQuaid/strap/blob/master/bin/strap.sh
+
+#######################################
+# update sudoers
+#######################################
 main() {
   :
 }

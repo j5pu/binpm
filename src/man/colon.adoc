@@ -81,16 +81,16 @@ Success.
 == EXAMPLES
 
 [verse]
-_$_ eval "$(*{manname}* --base)"
-_$_ eval "$(*{manname}* --init)"
+_$_ eval "$(*{manname}* _--base_)"
+_$_ eval "$(*{manname}* _--init_)"
 _$_ eval "$(*{manname}*)"
-_$_ eval "$(*{manname}* --init -P)"
-_$_ eval "$(*{manname}* --bins)"
-_$_ eval "$(*{manname}* --bins .)"
-_$_ eval "$(*{manname}* --bins "$0")"
+_$_ eval "$(*{manname}* _--init -P_)"
+_$_ eval "$(*{manname}* _--bins_)"
+_$_ eval "$(*{manname}* _--bins_ .)"
+_$_ eval "$(*{manname}* _--bins_ "$0")"
 _$_ PATH="$(*{manname}* . "${PATH}")"
-_$_ eval "$(*{manname}* . "${PATH}" --export)"
-_$_ PATH="$(*{manname}* --append . "${PATH}")"
-_$_ PATH="$(*{manname}* --remove . "${HOME}")"
+_$_ eval "$(*{manname}* . "${PATH}" _--export_)"
+_$_ PATH="$(*{manname}* _--append_ . "${PATH}")"
+_$_ PATH="$(*{manname}* _--remove_ . "${HOME}")"
 
 include::{includedir}/template.adoc[tag=repository-and-copying]

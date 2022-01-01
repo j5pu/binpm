@@ -1,0 +1,52 @@
+:Output:
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_OPTION_]... [_OPTION PROGRAM OUTPUT_]... [MESSAGE]...
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* command show _MESSAGE_  in _$YellowBold_ when _WARNING=1_.
+Message is not shown by default. +
+
+The output will be prefixed with caller function name and line if _$BASH_VERSION_.
+
+== OPTIONS
+
+*MESSAGE*::
+Arguments to show.
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=options-output]
+endif::[]
+
+== ARGUMENTS
+
+include::{includedir}/template.adoc[tag=arguments-information]
+
+== ENVIRONMENT
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=environment-output]
+endif::[]
+
+== OUTPUT
+
+For more information, see: _<<_arguments-information>>_
+ifdef::Output[]
+and to control output, see: _<<_options-output>>_ and _Environment <<_environment-output>>_
+endif::[]
+.
+
+== EXAMPLES
+
+[verse]
+_$_ WARNING=1 *{manname}* Warning Message
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+helper.sh(7)

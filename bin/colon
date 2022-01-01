@@ -124,9 +124,8 @@ gems() {
 #   Updated $PATH, $MANPATH and $INFOPATH values for eval.
 #######################################
 init() {
-  dirname="$(dirname "$0")"
   # shellcheck source=./system.sh
-  . "${dirname}/system.sh"
+  . "${DIRNAME}/system.sh"
   base
   pycharm
   paths_d
@@ -136,7 +135,7 @@ init() {
   bins /usr/local/bin
   [ "${HOMEBREW_PREFIX-}" = /usr/local ] || bins "${HOMEBREW_PREFIX}/bin"
   bins /opt/bin
-  SHOW=1 bins "${dirname}"
+  SHOW=1 bins "${DIRNAME}"
 }
 
 #######################################
@@ -350,10 +349,12 @@ show() {
 #######################################
 main() {
   APPEND=false; EXISTS=1; PHYSICAL=''; REMOVE=false
+  DIRNAME="$(dirname "$0")"
+
   if [ ! "${1-}" ]; then
     clean
   else
-    fromman "$0" "$@" || exit 0
+    "${DIRNAME}/fromman" "$0" "$@" || exit 0
     for arg do
       shift
       skip=true

@@ -1,0 +1,40 @@
+:Output:
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_OPTION_] [_OPTION PROGRAM OUTPUT_]
+*{manname}* lib
+*{manname}*
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* command generates (_lib_ option) the _color.sh(7)_ library with:
+
+* _globals_ for colors: _$ColorFormat_,
+* and _functions_ colors: _colorformat()_
+
+and shows the output (_no options_) of all colors and helper functions.
+
+== OPTIONS
+
+*lib*::
+Generates the _color.sh(7)_ library.
+
+== ARGUMENTS
+
+include::{includedir}/template.adoc[tag=arguments-information]
+
+== EXAMPLES
+
+[verse]
+_$_ *{manname}*
+
+_$_ *{manname}* _lib_
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+color.sh(7)

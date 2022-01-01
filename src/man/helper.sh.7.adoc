@@ -1,0 +1,88 @@
+:Output:
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_OPTION_]... [_OPTION PROGRAM OUTPUT_]... _ARGUMENT_...
+
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* library when _sourced_:
+
+* set bash strict mode, the default (STRICT=0 . *{manname}* to not set strict mode),
+* set helper _functions_ +
+
+When _executed_:
+
+* updates itself (_lib_ option) by calling _color(1)_ or shows the output (_no options_)
+of all colors and helper functions,
+* shows the output (_no options_) of all colors and helper functions,
+* and shows _<<_arguments-information>>_.
+
+== ARGUMENTS
+
+include::{includedir}/template.adoc[tag=arguments-information]
+
+== THE debug HELPER
+:name: debug
+
+_$_ DEBUG=1 *{name}* VARIABLE1 VARIABLE2
+
+== THE die HELPER
+:name: die
+
+_$_ false || *{name}* Error Message +
+_$_ *{name}* Task Completed
+
+== THE error HELPER
+:name: error
+
+_$_ *{name}* Error Message
+
+== THE has HELPER
+:name: has
+
+_$_ *{name}* git +
+_$_ *{name}* _-p_ git +
+_$_ *{name}* _-pv_ git
+
+== THE parse HELPER
+:name: parse
+
+_$_ *{name}* "$\{arg}"
+
+== THE psargs HELPER
+:name: psargs
+
+_$_ *{name}*
+
+== THE success HELPER
+:name: success
+
+_$_ *{name}* Success Message
+
+== THE verbose HELPER
+:name: verbose
+
+_$_ VERBOSE=1 *{name}* Verbose Message +
+_$_ DRY_RUN=1 *{name}* Dry-run Message
+
+== THE warning HELPER
+:name: warning
+
+_$_ WARNING=1 *{name}* Warning Message
+
+== EXAMPLES
+
+[verse]
+_$_ . *{manname}*
+
+_$_ STRICT=0 . *{manname}*
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+debug(1), die(1), error(1), has(1), parse(1), psargs(1), success(1), verbose(1), warning(1)

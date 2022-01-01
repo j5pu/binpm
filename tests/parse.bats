@@ -2,6 +2,7 @@
 
 setup() {
   load helpers/test_helper
+  . helper.sh
 }
 
 @test "parse" {

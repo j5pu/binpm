@@ -1,0 +1,66 @@
+:Output:
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_OPTION_]... [_OPTION PROGRAM OUTPUT_]...
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* command will convert a long optional argument from _<<_arguments-information>>_ into a global var
+(upper, '-' to '_' and remove '--') and will set it to 1.
+
+== OPTIONS
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=options-output]
+endif::[]
+
+== ENVIRONMENT
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=environment-output]
+endif::[]
+
+== OUTPUT
+
+For more information, see: _<<_arguments-information>>_
+
+ifdef::Output[]
+and to control output, see: _<<_options-output>>_ and _Environment <<_environment-output>>_
+endif::[]
+.
+
+== EXAMPLES
+
+[verse]
+case "$\{arg}" in
+  --debug|--dry-run|--quiet|--verbose|--warning|--white)
+    *{manname}* _"$\{arg}"_
+    shift
+  *) do ;;
+esac
+
+[verse]
+case "$\{arg}" in
+  --_*_)
+    *{manname}* _"$\{arg}"_
+    do other work
+  *) do ;;
+esac
+
+CAUTION: Do not do the following since _<<_arguments-information>>_ in _$1_ will be treated for *{manname}*,
+instead of the caller. +
++
+[verse]
+main() {
+  *{manname}* _"$@"_
+  *fromman* _"$0"_ _"$@"_ || exit
+}
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+helper.sh(7)

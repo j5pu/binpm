@@ -1,0 +1,56 @@
+:Output:
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_OPTION_]... [_OPTION PROGRAM OUTPUT_]... [MESSAGE]...
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* command show _MESSAGE_  in _$Red_.
+Message is shown by default unless _QUIET=1_. +
+
+Color output can be disabled to reuse the output from previous command with _--white_ option. +
+
+Some command like _git-top(1)_ silent output by default. To unset it, use _NO_QUIET=1_. +
+
+The output will be prefixed with caller function name and line if _$BASH_VERSION_.
+
+== OPTIONS
+
+*MESSAGE*::
+Arguments to show.
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=options-output]
+endif::[]
+
+== ARGUMENTS
+
+include::{includedir}/template.adoc[tag=arguments-information]
+
+== ENVIRONMENT
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=environment-output]
+endif::[]
+
+== OUTPUT
+
+For more information, see: _<<_arguments-information>>_
+ifdef::Output[]
+and to control output, see: _<<_options-output>>_ and _Environment <<_environment-output>>_
+endif::[]
+.
+
+== EXAMPLES
+
+[verse]
+_$_ *{manname}* Error Message
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+helper.sh(7)

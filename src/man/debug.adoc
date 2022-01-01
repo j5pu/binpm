@@ -1,0 +1,53 @@
+:Output:
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_OPTION_]... [_OPTION PROGRAM OUTPUT_]... [_VARIABLE_]...
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* command will show values of _VARIABLES_ option in _$GreyDim_ when _$DEBUG_ is set to _1_. +
+
+The output will be prefixed with caller function name and line if _$BASH_VERSION_.
+
+== OPTIONS
+
+*VARIABLE*::
+Variable name.
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=options-output]
+endif::[]
+
+== ARGUMENTS
+
+include::{includedir}/template.adoc[tag=arguments-information]
+
+== ENVIRONMENT
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=environment-output]
+endif::[]
+
+== OUTPUT
+
+For more information, see: _<<_arguments-information>>_
+ifdef::Output[]
+and to control output, see: _<<_options-output>>_ and _Environment <<_environment-output>>_
+endif::[]
+.
+
+== EXAMPLES
+
+[verse]
+_$_ *{manname}*
+
+_$_ DEBUG=1 *{manname}* VARIABLE1 VARIABLE2
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+helper.sh(7)

@@ -1,9 +1,12 @@
 #!/bin/sh
 
 #
-# Show colors and helper functions output, or generate color lib
+# show colors and helper functions output, or generate color lib
 set -eu
 
+#######################################
+# write color
+#######################################
 color() {
   co=${1}${4:-}; COLORS="${COLORS:-}${5:-}${co}"
   f="$(echo "${co}" | tr '[:upper:]' '[:lower:]')"
@@ -32,6 +35,9 @@ ${f}() { test "\$#" -eq 0 || printf '%b' "\${${co}}"; printf '%b' "\$@"; printf 
 EOF
 }
 
+#######################################
+# generate lib
+#######################################
 lib() {
   tee "${lib_path}" > /dev/null <<EOF
 #!/bin/sh
@@ -75,6 +81,9 @@ EOF
   git add "${lib_path}"
 }
 
+#######################################
+# show colors and helper functions output
+#######################################
 show() {
   . helper.sh
   prev_two=''
@@ -123,6 +132,9 @@ show() {
   die Die Message
 }
 
+#######################################
+# show colors and helper functions output, or generate color lib
+#######################################
 main() {
   script="${0##*/}"
   lib_filename="${script}.sh"

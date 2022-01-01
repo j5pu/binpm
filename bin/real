@@ -1,15 +1,15 @@
 #!/bin/sh
 
 #
-# Absolute logical (symlink, default) or resolved (physical, pwd -P) path (Accepts one level up if it doesn't exist).
+# absolute logical (symlink) or resolved (physical) path
 . helper.sh
 
 #######################################
-# Absolute logical (symlink, default) or resolved (physical, pwd -P) path (Accepts one level up if it doesn't exists)
+# absolute logical (symlink) or resolved (physical) path
 # Arguments:
 #   --dirname       Show dirname instead of path (default: unset)
-#   --fail          Exit if path does not exists (default: unset)
-#   --resolved      Resolve symlinks (pwd -P).
+#   --fail          Exit if path does not exist (default: unset)
+#   -P|--resolved   Resolve symlinks (pwd -P).
 #   path            Path (default: cwd).
 # Output:
 #   Path or help message to stdout.
@@ -41,8 +41,9 @@ main() {
       --dirname) show_dirname=1 ;;
       --fail) fail=1 ;;
       -P|--resolved) resolved=1 ;;
-      --debug|--dry-run|--no-quiet|--quiet|--verbose|--warning|--white) parse "${arg}" ;;
-      --*) fromman "$0" "$@" || exit 0 ;;
+      --*)
+        parse "${arg}"
+        fromman "$0" "$@" || exit 0 ;;
       *) path="${arg}" ;;
     esac
   done

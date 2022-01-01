@@ -1,0 +1,59 @@
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_OPTION_]... [_OPTION PROGRAM OUTPUT_]... [_COMMAND_] [_IMAGE_]
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* command will check if a command (default: _sudo_) or executable (path) exist locally or in an image. +
+
+Output is suppressed by default, unless _-v or --value_ option is used.
+
+Physical paths (_--path_ and _--all_ options) show the resolved absolute path.
+
+== OPTIONS
+
+*COMMAND*::
+Command name (default: _sudo_).
+
+*IMAGE*::
+Image name.
+
+*-a, --all*::
+Find all paths (excludes: functions and aliases). Assumes _--path_ and _--value_.
+
+*-p, --path*::
+Find executable in path (excludes: functions and aliases)
+
+*-v, --value*::
+Show value.
+
+== ARGUMENTS
+
+include::{includedir}/template.adoc[tag=arguments-information]
+
+== EXIT STATUS
+
+*0*::
+Success.
+
+*1*::
+Command not found. +
+
+== EXAMPLES
+
+[verse]
+_$_ *{manname}*
+_$_ *{manname}* --value
+_$_ *{manname}* -v
+_$_ *{manname}* git
+_$_ *{manname}* -p git
+_$_ *{manname}* -pv git
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+helper.sh(7)

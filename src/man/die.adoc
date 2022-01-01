@@ -1,0 +1,60 @@
+:Output:
+:includedir: /usr/local/include/man
+== SYNOPSIS
+
+[verse]
+*{manname}* [_OPTION_]... [_OPTION PROGRAM OUTPUT_]... [MESSAGE]...
+include::{includedir}/template.adoc[tag=synopsys-information]
+
+== DESCRIPTION
+
+The *{manname}* command based on the previous exit code, will call *error(1)* or *success(1)*
+to show arguments in _MESSAGE_ and _exit_. +
+
+Success and error messages are shown by default unless _QUIET=1_. +
+
+CAUTION: Use a variable and *do not use command substitution in the message* when _false || die_,
+since previous error code is overwritten by the command substitution return code. +
+_$_ cd "$(dirname "${input}")" 2>/dev/null || die Directory not Found: "$(dirname "${input}")"
+
+== OPTIONS
+
+*MESSAGE*::
+Arguments to show before exiting.
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=options-output]
+endif::[]
+
+== ARGUMENTS
+
+include::{includedir}/template.adoc[tag=arguments-information]
+
+== ENVIRONMENT
+
+ifdef::Output[]
+include::{includedir}/template.adoc[tag=environment-output]
+endif::[]
+
+== OUTPUT
+
+For more information, see: _<<_arguments-information>>_
+ifdef::Output[]
+and to control output, see: _<<_options-output>>_ and _Environment <<_environment-output>>_
+endif::[]
+.
+
+== EXAMPLES
+
+[verse]
+_$_ false || *{manname}* Error Message
+
+_$_ error="$(dirname foo)" || *{manname}* "$\{error}"
+
+_$_ *{manname}* Task Completed
+
+include::{includedir}/template.adoc[tag=repository-and-copying]
+
+== SEE ALSO
+
+helper.sh(7)
