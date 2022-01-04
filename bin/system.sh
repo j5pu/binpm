@@ -1,5 +1,6 @@
-# shellcheck shell=sh
-# TODO: add completions source here.
+#!/bin/sh
+
+: "${BINPM?"undefined: '/etc/profile' needs to be sourced"}"
 
 [ "${UNAME-}" ] || {
 
@@ -14,6 +15,16 @@ export ALPINE_LIKE
 # '1' if 'DIST_ID' is 'arch' for archlinux
 #
 export ARCH
+
+# <html><h2>Installation Directory for Bats and Bats Libraries</h2>
+# <p><strong><code>$BATS</code></strong> contains the installation directory.</p>
+# </html>
+export BATS
+
+# <html><h2>Bats Core Installation Directory</h2>
+# <p><strong><code>$BATS_CORE</code></strong> contains the bats core repository installation path.</p>
+# </html>
+export BATS_CORE
 
 # '1' if not '/etc/os-release' and not '/sbin'.
 #
@@ -318,6 +329,8 @@ system() {
     esac
     HOMEBREW_KEGS='ruby'
     HOMEBREW_PREFIX='/usr/local'
+    BATS="${HOMEBREW_PREFIX}/share/bats"
+    BATS_CORE="${BATS}/bats-core"
     MACOS=true
     PM='brew'
     PM_INSTALL="${PM} install"
@@ -357,7 +370,10 @@ system() {
 }
 
 system; unset -f system
+
+eval "$("${BINPM}/bin/colon" --init)"
 }
+
 
 ####################################### Executed
 #

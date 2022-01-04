@@ -3,6 +3,7 @@
 #
 # Prepend (beginning, the default), append (end) or remove to colon variables (PATH, INFOPATH, MANPATH etc.)
 set -eu
+: "${BINPM?"undefined: '/etc/profile' needs to be sourced"}"
 
 #######################################
 # adds bin, sbin, share/man and share/info
@@ -125,7 +126,7 @@ gems() {
 #######################################
 init() {
   # shellcheck source=./system.sh
-  . "${DIRNAME}/system.sh"
+  : "${BINPM?"undefined: '/etc/profile' needs to be sourced"}"
   base
   pycharm
   paths_d
@@ -135,7 +136,7 @@ init() {
   bins /usr/local/bin
   [ "${HOMEBREW_PREFIX-}" = /usr/local ] || bins "${HOMEBREW_PREFIX}/bin"
   bins /opt/bin
-  SHOW=1 bins "${DIRNAME}"
+  SHOW=1 bins "${BINPM}"
 }
 
 #######################################
@@ -349,14 +350,11 @@ show() {
 #######################################
 main() {
   APPEND=false; EXISTS=1; PHYSICAL=''; REMOVE=false
-  DIRNAME="$(dirname "$0")"
 
   if [ ! "${1-}" ]; then
     clean
   else
-    "${DIRNAME}/fromman" "$0" "$@" || exit 0
     for arg do
-      shift
       skip=true
       case "${arg}" in
         --append) APPEND=true ;;
@@ -367,8 +365,10 @@ main() {
         --export=*) EXPORT="${arg#--export=}" ;;
         --init) func="${arg#--}"; SHOW=0 ;;
         --remove) REMOVE=true ;;
+        --*) fromman "$0" "$@" || exit 0 ;;
         *) skip=false
       esac
+      shift
       $skip || set -- "$@" "${arg}"
     done
     ${func:-run} "$@"

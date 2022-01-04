@@ -1,1 +1,17 @@
-brew "most"
+tap "homebrew/bundle"
+tap "homebrew/core"
+if RUBY_PLATFORM[/darwin/]
+  tap "caarlos0/tap"
+  tap "homebrew/cask"
+  tap "homebrew/cask-fonts"
+  tap "homebrew/cask-versions"
+  tap "homebrew/services"
+  tap "mas-cli/tap"
+#  tap "tekwizely/tap"
+  brew "asciidoctor"
+  brew "mas"
+  brew "most"
+  brew "twine-pypi"
+  brew "caarlos0/tap/svu"
+#  brew "tekwizely/tap/run"
+end

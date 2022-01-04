@@ -5,7 +5,6 @@ setup() {
 }
 
 @test "system.sh --version" {
-  genman
   run ${BATS_TEST_DESCRIPTION}
   assert_output "${BATS_SEMVER_NEXT}"
 }

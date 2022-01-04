@@ -171,7 +171,7 @@ has() {
   fromman has "$@" || exit 0
 
   doc() { docker run -i --rm --entrypoint sh "${image}" -c "${1}"; }
-
+  unset executable
   all=false; path=false; value=false
   unset image
   for arg; do
@@ -224,7 +224,8 @@ has() {
   elif [ "${rv-}" ]; then
     ! $value || echo "${rv}"
   else
-    false
+    unset rv; unset -f doc
+    return 1 2>/dev/null || exit 1
   fi
   unset all executable path rv value; unset -f doc
 }
@@ -448,6 +449,18 @@ verbose() {
     [ "$#" -eq 0 ] || sep=' '
     printf '%b\n' "$(cyanbold '>')${sep}$(cyandim "$*")"
     unset sep
+  fi
+}
+
+#######################################
+# xtrace
+#######################################
+xtrace() {
+  fromman verbose "$@" || exit 0
+  rm -f /tmp/xtrace
+  if [ "${BASH_VERSION-}" ] && [ "${XTRACE-0}" -eq 1 ]; then
+    exec 19>/tmp/xtrace
+    export BASH_XTRACEFD=19
   fi
 }
 

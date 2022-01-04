@@ -2,11 +2,8 @@
 
 setup() {
   load helpers/test_helper
-  genman
   . helper.sh
 }
-
-setup_file() { genman; }
 
 version() {
   run ${BATS_TEST_DESCRIPTION}

@@ -1,16 +1,10 @@
 # shellcheck shell=sh
 . bats.sh
 
-# TODO: el puto color de los ficheros de python
-# TODO: he puesto que no strict en helper.sh en PS1
+# TODO: aqui lo dejo ni puta idea errores bats::description with color.sh solo cuando uso bats.sh para
+#  hacer los tests y no cuando corro por fichero, y por qué no falla en colon que usa la descripción y si en findup.
+# TODO: quitar la puta mierda de bats::description --version creo porque si meto el fromman fallara!!!
 # TODO: lo de fpm y nfpm etc en Chrome.
-# TODO: el instalar cache de pip de https://pypi.org/simple/pip/ que no sale la ultima.
-# TODO: hash -t git saca el path hash git saca error code hash -td git se olvida de las que ha recordado
-#   y saca path, siempre usa la ultima del path. Pero si se actualiza el PATH hash -t git sale error, primero
-#   hash git para que funcione, y borra todos los anteriores el cambio de PATH...
-# TODO: el has poner que la imagen que descarga si no la encuentra sea quiet.... se queda pillado en download complete
-#  si no
-#  hay imagen
 # TODO: me falta la documentation de has, parser y psargs.
 # TODO: el findup, hacer un top, las pruebas etc. y meterlo en el colon --bins
 # TODO: meter en bats.sh el colon --base cuando este instalado.

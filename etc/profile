@@ -1,0 +1,14 @@
+# shellcheck shell=sh
+
+#
+# System profile
+umask 0002
+
+# <html><h2>Binpm Prefix</h2>
+# <p><strong><code>$BINPM</code></strong> contains the git top path or installation prefix.</p>
+# </html>
+BINPM="${BINPM:-/usr/local}"; export BINPM
+
+# shellcheck source=./../bin/system.sh
+. "${BINPM}/bin/system.sh"
+. profile.sh
