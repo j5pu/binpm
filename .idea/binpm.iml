@@ -6,7 +6,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="bindev" />
     <orderEntry type="module" module-name="binsh" />
-    <orderEntry type="module" module-name="bingit" />
     <orderEntry type="module" module-name="backup" />
   </component>
   <component name="PyDocumentationSettings">
