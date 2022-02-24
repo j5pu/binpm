@@ -1,7 +1,0 @@
-#!/bin/sh
-
-#
-# repository top path from git or findup
-
-fromman "$0" "$@" || exit 0
-
