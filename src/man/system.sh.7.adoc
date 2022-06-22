@@ -2,7 +2,7 @@
 :includedir: /usr/local/include/man
 == SYNOPSIS
 
-[verse]
+[verse__]__
 *{manname}* [_OPTION_]... [_OPTION PROGRAM OUTPUT_]... _ARGUMENT_...
 
 include::{includedir}/template.adoc[tag=synopsys-information]
